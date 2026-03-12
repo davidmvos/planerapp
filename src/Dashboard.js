@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, onAuthStateChanged, signOut } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { useEffect, useState } from 'react';
 import { getDatabase, ref, child, get, onValue } from "firebase/database";
+import { useNavigate } from 'react-router-dom';
 
 import "./Dashboard.css";
 
@@ -15,6 +16,7 @@ import InfoToast from './InfoToast';
 import Navbar from './Navbar';
 import NewTask from './NewTask';
 import Task from './Task';
+import SignOutButton from './SignOutButton';
 
 
 
@@ -27,6 +29,8 @@ function Dashboard() {
     const [user, setUser] = useState(null);
     const [tasks, setTasks] = useState(null);
     const [sortingMode, setSortingMode] = useState(null);
+
+    const navigate = useNavigate();
 
     const categories = {
         0: "Ohne Kategorie",
@@ -125,6 +129,7 @@ function Dashboard() {
                 setEmail(null);
                 setUser(null);
                 setTasks(null);
+                navigate("/login");
             }
         });
 
@@ -141,8 +146,6 @@ function Dashboard() {
     if (email === null ) {
         return <p>Lade...</p>;
     }
-
-
 
     const sortedTasks = getSortedTasks();
 

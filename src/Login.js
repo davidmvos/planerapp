@@ -32,6 +32,7 @@ function Login() {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
             setLoggedIn(true);
+            navigate("/");
         } 
         });
 
@@ -40,8 +41,8 @@ function Login() {
 
     return (
         <>
-        <div className="d-flex justify-content-center align-items-center" style={{ height: 100 + "vh" }}>
-            <div className="container-sm mb-3" style={{maxWidth: 500 + "px"}}>
+        <div className="d-flex justify-content-md-center align-items-sm-center" style={{ height: 100 + "vh" }}>
+            <div className="container-sm mb-3" style={{maxWidth: 500 + "px", marginTop: 10 + "px"}}>
                 <div className="card px-4 py-1">
                     <div className="card-body">
                         <h1 className="card-title">Login</h1>

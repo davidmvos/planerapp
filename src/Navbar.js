@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { useNavigate } from 'react-router-dom';
 
-
+import SignOutButton from './SignOutButton';
 
 const auth = getAuth();
 
@@ -76,6 +76,9 @@ export default function Navbar() {
                         <a className="nav-link" href="#">Einstellungen</a>
                     </li>
                 </ul>
+                <div class="d-flex">
+                    <SignOutButton />
+                </div>
             
                 </div>
             </div>

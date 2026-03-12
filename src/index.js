@@ -23,7 +23,7 @@ const App = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user);
+        // console.log(user);
         // User is logged in, no need to navigate
       } else {
         console.log('User not logged in');
