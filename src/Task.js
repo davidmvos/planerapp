@@ -36,21 +36,21 @@ export default function Task({ id, name, desc, due, category }) {
                     <p className="card-text">{desc}</p>
                 </div>
                 <div className="card-footer">
-                    <button className="btn btn-danger" data-bs-target={"#" + id + "-delete"} data-bs-toggle="modal">Löschen</button>
+                    <button className="btn btn-outline-secondary" data-bs-target={"#" + id + "-delete"} data-bs-toggle="modal">Erledigt</button>
                 </div>
             </div>
             <div className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id={id + "-delete"}>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5">Achtung</h1>
+                            <h1 className="modal-title fs-5 text-danger">Achtung</h1>
                         </div>
                         <div className="modal-body">
                             Aufgabe wird als erledigt markiert
                         </div>
                         <div className="modal-footer">
                             <button className="btn btn-outline-secondary" data-bs-dismiss="modal" data-bs-target={"#" + id + "-delete"}>Zurück</button>
-                            {currentUser && <button className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => setTaskDone(id, currentUser)} data-bs-target={"#" + id + "-delete"}>Als erledigt markieren</button>}
+                            {currentUser && <button className="btn btn-warning" data-bs-dismiss="modal" onClick={() => setTaskDone(id, currentUser)} data-bs-target={"#" + id + "-delete"}>Als erledigt markieren</button>}
                         </div>
                     </div>
                 </div>
