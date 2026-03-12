@@ -61,7 +61,7 @@ export default function Navbar() {
                         <ul className="dropdown-menu">
                             <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#newTaskModal">Neue Aufgabe</a></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li><h6 class="dropdown-header">Sortierung</h6></li>
+                            <li><h6 className="dropdown-header">Sortierung</h6></li>
                             <li><a onClick={() => setSortingMode(0, currentUser)} className={"dropdown-item " + ""} href="#">Standard</a></li>
                             <li><a onClick={() => setSortingMode(1, currentUser)} className={"dropdown-item " + ""} href="#">Enddatum aufsteigend</a></li>
                             <li><a onClick={() => setSortingMode(2, currentUser)} className={"dropdown-item " + ""} href="#">Enddatum absteigend</a></li>
@@ -76,7 +76,7 @@ export default function Navbar() {
                         <a className="nav-link" href="#">Einstellungen</a>
                     </li>
                 </ul>
-                <div class="d-flex">
+                <div className="d-flex">
                     <SignOutButton />
                 </div>
             

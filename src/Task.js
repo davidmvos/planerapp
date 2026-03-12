@@ -31,7 +31,7 @@ export default function Task({ id, name, desc, due, category }) {
                     {category}
                 </div>
                 <div className="card-body">
-                    <h5 class="card-title">{name}</h5>
+                    <h5 className="card-title">{name}</h5>
                     <p className="card-text">{due}</p>
                     <p className="card-text">{desc}</p>
                 </div>
