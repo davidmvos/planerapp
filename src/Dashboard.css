@@ -1,0 +1,5 @@
+.task-card {
+    @media screen and (max-width: calc(575px + 95px)){
+        width: 100% !important;
+    }
+}
