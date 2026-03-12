@@ -17,6 +17,7 @@ import Navbar from './Navbar';
 import NewTask from './NewTask';
 import Task from './Task';
 import SignOutButton from './SignOutButton';
+import { getSubjects } from './backend';
 
 
 
@@ -32,35 +33,8 @@ function Dashboard() {
 
     const navigate = useNavigate();
 
-    const categories = {
-        0: "Ohne Kategorie",
-        1: "Biologie",
-        2: "Bio-Chemie",
-        3: "Bio-Sport",
-        4: "Bionik",
-        5: "Chemie",
-        6: "Deutsch",
-        7: "Englisch",
-        8: "Erziehungswissenschaften",
-        9: "Französich",
-        10: "Geografie",
-        11: "Geschichte",
-        12: "Informatik",
-        13: "Italienisch",
-        14: "Kunst",
-        15: "Latein",
-        16: "Mathe",
-        17: "Musik",
-        18: "Philosophie",
-        19: "Physik",
-        20: "Politik",
-        21: "Politik-Wirtschaft",
-        22: "Religion",
-        23: "Sozialwissenschaften",
-        24: "Spanisch",
-        25: "Yourope",
-        26: "Sport"
-    };
+    const [subjects, setSubjects] = useState(null);
+    
 
     // Compute sorted tasks from the raw tasks object + sortingMode
     function getSortedTasks() {
@@ -98,6 +72,11 @@ function Dashboard() {
             if (user) {
                 setEmail(user.email);
                 setUser(user);
+
+                getSubjects(user).then(data => {
+                    setSubjects(data);
+                });
+                
 
                 const dbRef = ref(getDatabase());
                 get(child(dbRef, `userdata/${user.uid}`)).then((snapshot) => {
@@ -155,8 +134,8 @@ function Dashboard() {
     <NewTask/>
     <div className="container-xxl my-3 d-flex flex-row flex-wrap" data-masonry='{"percentPosition": true, "columnWidth": 200, "itemSelector": ".grid-item"}'>
         {
-            sortedTasks.map(([key, value]) => (
-                <Task key={key} name={value.title} id={key} due={value.due} category={categories[value.subject.valueOf()]} desc={value.task} />
+            subjects && sortedTasks.map(([key, value]) => (
+                <Task key={key} name={value.title} id={key} due={value.due} category={subjects[value.subject.valueOf()]} desc={value.task} />
             ))
         }
     

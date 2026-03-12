@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {checkLogin} from "./backend";
+import {checkLogin, getSubjects} from "./backend";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,35 +20,9 @@ export default function NewTask() {
 
     const [newTaskCreated, setNewTaskCreated] = useState(false);
 
-    const categories = {
-        0: "Ohne Kategorie",
-        1: "Biologie",
-        2: "Bio-Chemie",
-        3: "Bio-Sport",
-        4: "Bionik",
-        5: "Chemie",
-        6: "Deutsch",
-        7: "Englisch",
-        8: "Erziehungswissenschaften",
-        9: "Französich",
-        10: "Geografie",
-        11: "Geschichte",
-        12: "Informatik",
-        13: "Italienisch",
-        14: "Kunst",
-        15: "Latein",
-        16: "Mathe",
-        17: "Musik",
-        18: "Philosophie",
-        19: "Physik",
-        20: "Politik",
-        21: "Politik-Wirtschaft",
-        22: "Religion",
-        23: "Sozialwissenschaften",
-        24: "Spanisch",
-        25: "Yourope",
-        26: "Sport"
-    };
+    const [subjects, setSubjects] = useState(null)
+
+    
 
     function clearForm() {
         document.getElementById("taskName").value = "";
@@ -66,6 +40,7 @@ export default function NewTask() {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setCurrentUser(user);
+                getSubjects(user).then(data => {setSubjects(data)});
             }
         });
 
@@ -112,7 +87,7 @@ export default function NewTask() {
                                     id="taskCategory" 
                                     onChange={(e) => setTaskCategory(e.target.value)}>
                                         
-                                        {Object.entries(categories).map(([key, value]) => (
+                                        {subjects && Object.entries(subjects).map(([key, value]) => (
                                             <option key={key} value={key}>
                                                 {value}
                                             </option>

@@ -118,7 +118,73 @@ export async function getSortingMode(user) {
             else {
                 return { "success": false, "error": "Snapshot doesnt exist" };
             }
-            
+
+        })
+        .catch((error) => {
+            return { "success": false, "error": error };
+        });
+}
+
+export async function getSubjects(user) {
+    const defaultSubjects = {
+        0: "Ohne Kategorie",
+        1: "Biologie",
+        2: "Bio-Chemie",
+        3: "Bio-Sport",
+        4: "Bionik",
+        5: "Chemie",
+        6: "Deutsch",
+        7: "Englisch",
+        8: "Erziehungswissenschaften",
+        9: "Französich",
+        10: "Geografie",
+        11: "Geschichte",
+        12: "Informatik",
+        13: "Italienisch",
+        14: "Kunst",
+        15: "Latein",
+        16: "Mathe",
+        17: "Musik",
+        18: "Philosophie",
+        19: "Physik",
+        20: "Politik",
+        21: "Politik-Wirtschaft",
+        22: "Religion",
+        23: "Sozialwissenschaften",
+        24: "Spanisch",
+        25: "Yourope",
+        26: "Sport"
+    };
+
+    const settingRef = child(ref(db), "userdata/" + user.uid + "/preferences/subjects");
+    return get(settingRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+
+                if (snapshot.val() === null) {
+                    setCategories(defaultSubjects, user);
+                    return defaultSubjects;
+                }
+                return snapshot.val();
+
+            }
+            else {
+                setCategories(defaultSubjects, user);
+                return false;
+
+            }
+
+        })
+        .catch((error) => {
+            return { "success": false, "error": error };
+        });
+}
+
+export function setCategories(subjectList, user) {
+    const settingRef = ref(db, "userdata/" + user.uid + "/preferences/subjects");
+    set(settingRef, subjectList)
+        .then(() => {
+            return { "success": true };
         })
         .catch((error) => {
             return { "success": false, "error": error };
