@@ -10,7 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from 'react-router-dom';
 
 const auth = getAuth();
-
+auth.languageCode = "de";
 
 export default function Signup() {
     const navigate = useNavigate();
