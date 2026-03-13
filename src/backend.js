@@ -1,7 +1,7 @@
 
 // Import the functions you need from the SDKs you need
 import { getAnalytics } from 'firebase/analytics';
-import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, onAuthStateChanged, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref, child, get, onValue, remove, set } from "firebase/database";
 
 import firebase from 'firebase/compat/app';
@@ -161,7 +161,7 @@ export async function getSubjects(user) {
         .then((snapshot) => {
             if (snapshot.exists()) {
 
-                if (snapshot.val() === null) {
+                if (snapshot.val() === null || snapshot.length == 0) {
                     setCategories(defaultSubjects, user);
                     return defaultSubjects;
                 }

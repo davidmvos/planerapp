@@ -13,21 +13,27 @@ import { getLoggedIn } from './backend';
 
 import bootstrap from 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
+import Signup from './Signup';
 
 const auth = getAuth();
 
 const App = () => {
   const auth = getAuth();
   const navigate = useNavigate();
-
+  const currentPath = window.location.pathname;
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // console.log(user);
         // User is logged in, no need to navigate
       } else {
+
         console.log('User not logged in');
-        navigate('/login'); // Redirect to /login if not logged in
+
+        if (currentPath !== '/login' && currentPath !== '/signup') {
+          navigate('/login'); // Redirect to /login if not logged in
+        }
+        
       }
     });
 
@@ -37,6 +43,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Dashboard />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
       <Route path="/test" element={<CheckLoginExample />} />
     </Routes>
   );

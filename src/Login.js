@@ -45,34 +45,37 @@ function Login() {
             <div className="container-sm mb-3" style={{maxWidth: 500 + "px", marginTop: 10 + "px"}}>
                 <div className="card px-4 py-1">
                     <div className="card-body">
-                        <h1 className="card-title">Login</h1>
+                        <h1 className="card-title mb-3">Login</h1>
                         
                         <form onSubmit={handleLogin}>
-
-                            <label htmlFor="email" className="form-label" >E-Mail</label>
-                            <input
-                                type="text"
-                                id="email"
-                                name="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)} // Update state on input change
-                                className="form-control"
-                                required
-                            />
-                            <label htmlFor="password" className="form-label">Passwort</label>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)} // Update state on input change
-                                className="form-control"
-                                required
-                            />
+                            <div className='mb-3'>
+                                <label htmlFor="email" className="form-label" >E-Mail</label>
+                                <input
+                                    type="text"
+                                    id="email"
+                                    name="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)} // Update state on input change
+                                    className="form-control"
+                                    required
+                                />
+                            </div>
+                            <div className='mb-3'>
+                                <label htmlFor="password" className="form-label">Passwort</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)} // Update state on input change
+                                    className="form-control"
+                                    required
+                                />
+                            </div>
                             <br/>
-                            <div classname="d-flex flex-row justify-content-between" style={{width: 100 + "%"}}>
+                            <div classname="d-flex flex-row justify-content-evenly w-100" style={{width: 100 + "%", display: "flex", justifyContent: "space-between"}}>
                                 <button id="submit" type="submit" className="btn btn-primary">Einloggen</button>
-                                <button id="startPage" className="btn btn-outline-secondary" onClick = {() => navigate("/")}>Zur Startseite</button>
+                                <button id="startPage" className="btn btn-primary" onClick = {() => navigate("/signup")}>Account erstellen</button>
                             </div>
                         </form>
                     </div>
