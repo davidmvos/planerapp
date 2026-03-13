@@ -6,10 +6,11 @@ import { getAnalytics } from 'firebase/analytics';
 import { useEffect, useState } from 'react';
 import { getDatabase, ref, child, get, onValue } from "firebase/database";
 import { useNavigate } from 'react-router-dom';
+import DashboardOptionMenu from './DashboardOptionMenu';
 
 import "./Dashboard.css";
 
-import bootstrap from 'bootstrap';
+import bootstrap, { Toast } from 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import InfoToast from './InfoToast';
@@ -130,7 +131,7 @@ function Dashboard() {
 
     return (
     <>
-    <Navbar/>
+    <Navbar optionMenu={<DashboardOptionMenu />}/>
     <NewTask/>
     <div className="container-xxl my-3 d-flex flex-row flex-wrap" data-masonry='{"percentPosition": true, "columnWidth": 200, "itemSelector": ".grid-item"}'>
         {

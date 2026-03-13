@@ -1,45 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import {checkLogin, getSortingMode, setSortingMode} from "./backend";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-
-import InfoToast from './InfoToast';
-
 import bootstrap from 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { useNavigate } from 'react-router-dom';
+import DashboardOptionMenu from './DashboardOptionMenu';
 
 import SignOutButton from './SignOutButton';
 
-const auth = getAuth();
 
-export default function Navbar() {
-    const [currentUser, setCurrentUser] = useState(null);
-    const [currentSortingMode, setCurrentSortingMode] = useState(null);
-    const [currentModeActive, setCurrentModeActive] = useState([false, false, false, false, false]);
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setCurrentUser(user);
-
-                getSortingMode(user).then((data) => {
-                    if (data) {
-                        if (data.success) {
-                            setCurrentSortingMode(data["mode"]);
-                            
-
-                        } else {
-                            setCurrentSortingMode(0);
-                        }
-                    }
-                });
-            }
-        });
-
-        return () => unsubscribe(); // Clean up the subscription on unmount
-    }, [auth]);
-
+export default function Navbar({optionMenu}) {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
@@ -58,15 +25,7 @@ export default function Navbar() {
                         <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Optionen
                         </a>
-                        <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#newTaskModal">Neue Aufgabe</a></li>
-                            <li><hr className="dropdown-divider" /></li>
-                            <li><h6 className="dropdown-header">Sortierung</h6></li>
-                            <li><a onClick={() => setSortingMode(0, currentUser)} className={"dropdown-item " + ""} href="#">Standard</a></li>
-                            <li><a onClick={() => setSortingMode(1, currentUser)} className={"dropdown-item " + ""} href="#">Enddatum aufsteigend</a></li>
-                            <li><a onClick={() => setSortingMode(2, currentUser)} className={"dropdown-item " + ""} href="#">Enddatum absteigend</a></li>
-                            <li><a onClick={() => setSortingMode(3, currentUser)} className={"dropdown-item " + ""} href="#">Fach</a></li>
-                        </ul>
+                        {optionMenu}
                     </li>
                     <li className="nav-item">
                         <a className="nav-link disabled" aria-disabled="true">Stundenplan</a>
