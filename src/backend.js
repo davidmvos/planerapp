@@ -110,7 +110,7 @@ export async function setSortingMode(newMode, user) {
 
 export async function getSortingMode(user) {
     const settingRef = child(ref(db), "userdata/" + user.uid + "/preferences/sortingMode");
-    get(settingRef)
+    return get(settingRef)
         .then((snapshot) => {
             if (snapshot.exists()) {
                 return { "success": true, "mode": snapshot.val() };
