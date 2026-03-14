@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {checkLogin} from "./backend";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, reauthenticateWithCredential } from "firebase/auth";
 
 import InfoToast from './InfoToast';
 
@@ -8,12 +8,16 @@ import bootstrap from 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { useNavigate } from 'react-router-dom';
+import { EmailAuthProvider } from 'firebase/auth/web-extension';
 
 
 const auth = getAuth();
 
-function Login() {
+function Login({inline, disableSignup, reLogin, callback}) {
+
+    
     const navigate = useNavigate();
+    const currentPath = window.location.pathname;
 
     // State to manage email and password
     const [email, setEmail] = useState('');
@@ -21,18 +25,58 @@ function Login() {
 
     const [loggedIn, setLoggedIn] = useState(false);
 
+    const[currentUser, setCurrentUser] = useState(null);
+
+    const [toastError, setToastError] = useState(null);
+
+
 
     const handleLogin = (event) => {
         event.preventDefault(); // Prevent default form submission
-        console.log(checkLogin(email, password));
+
+        if (reLogin && currentUser) {
+            if (email === currentUser.email) {
+                const credential = EmailAuthProvider.credential(email, password);
+                reauthenticateWithCredential(currentUser, credential)
+                .then(() => {
+                    setLoggedIn(true);
+                    if (callback) {
+                        callback();
+                    }
+                })
+                .catch((error) => {
+                    let msg = <b className='text-danger'>{error.code}</b>; // TODO: Bessere Fehlernachrichten
+                    setToastError(msg);
+                    setTimeout(() => {setToastError(null)}, 4000)
+                });
+            } else {
+                let msg = <b className='text-danger'>Falsche E-Mail-Addresse!</b>;
+                setToastError(msg);
+                setTimeout(() => {setToastError(null)}, 4000)
+            }
+
+        } else {
+            checkLogin(email, password);
+        }
+        
     };
 
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
-            setLoggedIn(true);
-            navigate("/");
+
+            if (!reLogin) {
+                setLoggedIn(true);
+            }
+            
+
+            setCurrentUser(user);
+
+            if (currentPath === "/login") {
+                navigate("/");
+            }
+            
         } 
         });
 
@@ -41,12 +85,11 @@ function Login() {
 
     return (
         <>
-        <div className="d-flex justify-content-md-center align-items-sm-center" style={{ height: 100 + "vh" }}>
-            <div className="container-sm mb-3" style={{maxWidth: 500 + "px", marginTop: 10 + "px"}}>
-                <div className="card px-4 py-1">
-                    <div className="card-body">
+        <div className={inline? "d-inline" : "d-flex justify-content-md-center align-items-sm-center"} style={{ height: inline? "" : "100vh" }}>
+            <div className={inline? "container d-block" : "container-sm mb-3"} style={{maxWidth: 500 + "px", marginTop: inline? "" : "10px"}}>
+                <div className={inline? "card px-0 py-0 mb-3" : "card px-4 py-1"} style={{border: inline? "none" : ""}}>
+                    <div className="card-body" style={{paddingTop: inline? "8px" : ""}}>
                         <h1 className="card-title mb-3">Login</h1>
-                        
                         <form onSubmit={handleLogin}>
                             <div className='mb-3'>
                                 <label htmlFor="email" className="form-label" >E-Mail</label>
@@ -58,6 +101,7 @@ function Login() {
                                     onChange={(e) => setEmail(e.target.value)} // Update state on input change
                                     className="form-control"
                                     required
+                                    autoComplete="true"
                                 />
                             </div>
                             <div className='mb-3'>
@@ -70,12 +114,15 @@ function Login() {
                                     onChange={(e) => setPassword(e.target.value)} // Update state on input change
                                     className="form-control"
                                     required
+                                    autoComplete="true"
                                 />
                             </div>
                             <br/>
-                            <div classname="d-flex flex-row justify-content-evenly w-100" style={{width: 100 + "%", display: "flex", justifyContent: "space-between"}}>
+                            <div className={`d-flex flex-row w-100 ${disableSignup? "justify-content-end" : "justify-content-space-between"}`} 
+                                style={{width: 100 + "%", display: "flex", justifyContent: disableSignup? "end" : "space-between"}}>
                                 <button id="submit" type="submit" className="btn btn-primary">Einloggen</button>
-                                <button id="startPage" className="btn btn-primary" onClick = {() => navigate("/signup")}>Account erstellen</button>
+                                
+                                {disableSignup? "" : <button id="startPage" className="btn btn-primary" onClick = {() => navigate("/signup")}>Account erstellen</button>}
                             </div>
                         </form>
                     </div>
@@ -83,6 +130,7 @@ function Login() {
             </div>
         </div>
         {loggedIn && <InfoToast message={"Eingeloggt!"}/>}
+        {toastError && <InfoToast message={toastError} />}
         </>
     )
 }

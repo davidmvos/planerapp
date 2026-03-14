@@ -14,6 +14,7 @@ import { getLoggedIn } from './backend';
 import bootstrap from 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Signup from './Signup';
+import Settings from './Settings';
 
 const auth = getAuth();
 
@@ -42,9 +43,10 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<Login inline={false} disableSignup={false}/>} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/test" element={<CheckLoginExample />} />
+      <Route path="/settings" element={<Settings />} />
     </Routes>
   );
 };

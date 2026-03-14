@@ -83,11 +83,11 @@ export default function Signup() {
                         <form onSubmit={handleSignup}>
 
                             <div className="mb-3">
-                                <label htmlFor="email" className="form-label" >E-Mail</label>
+                                <label htmlFor="signupEmail" className="form-label" >E-Mail</label>
                                 <input
                                     type="text"
-                                    id="email"
-                                    name="email"
+                                    id="signupEmail"
+                                    name="signupEmail"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)} // Update state on input change
                                     className="form-control"
@@ -96,11 +96,11 @@ export default function Signup() {
                             </div>
 
                             <div className="mb-3">
-                                <label htmlFor="password" className="form-label">Passwort</label>
+                                <label htmlFor="signupPassword" className="form-label">Passwort</label>
                                 <input
                                     type="password"
-                                    id="password"
-                                    name="password"
+                                    id="signupPassword"
+                                    name="signupPassword"
                                     value={password}
                                     onChange={(e) => {setPassword(e.target.value); checkPasswords();}} // Update state on input change
                                     className={`form-control ${password === passwordRepeat ? "" : "is-invalid"}`}
