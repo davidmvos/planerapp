@@ -158,7 +158,7 @@ export async function getSubjects(user) {
         .then((snapshot) => {
             if (snapshot.exists()) {
 
-                if (snapshot.val() === null || snapshot.length == 0) {
+                if (snapshot.val() === null || snapshot.length === 0) {
                     setCategories(defaultSubjects, user);
                     return defaultSubjects;
                 }

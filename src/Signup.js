@@ -8,10 +8,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { useNavigate } from 'react-router-dom';
 
-const auth = getAuth();
-auth.languageCode = "de";
+
 
 export default function Signup() {
+    const auth = getAuth();
+    auth.languageCode = "de";
     const navigate = useNavigate();
 
     // State to manage email and password
@@ -64,7 +65,7 @@ export default function Signup() {
         });
 
         return () => unsubscribe(); // Clean up the subscription on unmount
-    }, [auth]);
+    }, [auth, navigate]);
     let toastMsg;
     if (loginError) {
         toastMsg = <b className='text-danger'>{loginError}</b>;

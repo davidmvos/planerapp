@@ -99,7 +99,7 @@ export default function Settings() {
     return (
 
         <>
-        <Navbar optionMenu={<ul className="dropdown-menu"><li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#newTaskModal">Neue Aufgabe</a></li></ul>} />
+        <Navbar optionMenu={<ul className="dropdown-menu"><li><a className="dropdown-item" href="." data-bs-toggle="modal" data-bs-target="#newTaskModal">Neue Aufgabe</a></li></ul>} />
         <NewTask />
         <div className="container mt-3">
             <h1>Einstellungen</h1>

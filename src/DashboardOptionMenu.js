@@ -7,9 +7,10 @@ import InfoToast from './InfoToast';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
-const auth = getAuth();
+
 
 export default function DashboardOptionMenu() {
+    const auth = getAuth();
     const [currentUser, setCurrentUser] = useState(null);
     const [currentSortingMode, setCurrentSortingMode] = useState(null);
     const [currentModeActive, setCurrentModeActive] = useState([false, false, false, false, false]);
@@ -36,6 +37,7 @@ export default function DashboardOptionMenu() {
     }, [auth]);
 
     function handleSortingModeChange(mode) {
+
         setSortingMode(mode, currentUser);
         setCurrentSortingMode(mode);
         setShowToast(true);
@@ -55,10 +57,10 @@ export default function DashboardOptionMenu() {
             <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#newTaskModal">Neue Aufgabe</a></li>
             <li><hr className="dropdown-divider" /></li>
             <li><h6 className="dropdown-header">Sortierung</h6></li>
-            <li><a onClick={() => handleSortingModeChange(0)} className={"dropdown-item " + activeForSortingMode(0)} href="#">Standard</a></li>
-            <li><a onClick={() => handleSortingModeChange(1)} className={"dropdown-item " + activeForSortingMode(1)} href="#">Enddatum aufsteigend</a></li>
-            <li><a onClick={() => handleSortingModeChange(2)} className={"dropdown-item " + activeForSortingMode(2)} href="#">Enddatum absteigend</a></li>
-            <li><a onClick={() => handleSortingModeChange(3)} className={"dropdown-item " + activeForSortingMode(3)} href="#">Fach</a></li>
+            <li><a onClick={(e) => { handleSortingModeChange(0); }} className={"dropdown-item " + activeForSortingMode(0)} href="#">Standard</a></li>
+            <li><a onClick={(e) => { handleSortingModeChange(1); }} className={"dropdown-item " + activeForSortingMode(1)} href="#">Enddatum aufsteigend</a></li>
+            <li><a onClick={(e) => { handleSortingModeChange(2); }} className={"dropdown-item " + activeForSortingMode(2)} href="#">Enddatum absteigend</a></li>
+            <li><a onClick={(e) => { handleSortingModeChange(3); }} className={"dropdown-item " + activeForSortingMode(3)} href="#">Fach</a></li>
         </ul>
         {showToast && <InfoToast message={"Sortiermodus geändert!"}/>}
         </>

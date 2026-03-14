@@ -20,10 +20,11 @@ import { getSubjects } from './backend';
 
 
 
-const auth = getAuth();
+
 
 
 function Dashboard() {
+    const auth = getAuth();
 
     const [email, setEmail] = useState(null);
     const [user, setUser] = useState(null);
@@ -40,16 +41,16 @@ function Dashboard() {
         if (!tasks) return [];
         const entries = Object.entries(tasks).filter(([, value]) => !value.done);
 
-        if (sortingMode == 1 || sortingMode == 2) { // modus 2: Aufsteigend nach Enddatum, modus 3: absteigend
+        if (sortingMode === 1 || sortingMode === 2) { // modus 2: Aufsteigend nach Enddatum, modus 3: absteigend
             entries.sort(([, taskA], [, taskB]) => {
                 return (taskA.due || "").localeCompare(taskB.due || "");
             });
 
-            if (sortingMode == 2) {
+            if (sortingMode === 2) {
                 entries.reverse();
             }
         } 
-        if (sortingMode == 3) { // nach fach
+        if (sortingMode === 3) { // nach fach
             entries.sort(([, taskA], [, taskB]) => {
                 return (taskA.subject || "").localeCompare(taskB.subject || "");
             });
