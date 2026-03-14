@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import bootstrap from 'bootstrap';
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function InfoToast({ message }) {

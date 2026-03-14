@@ -1,8 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, onAuthStateChanged, signOut } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
+import { getAuth,  onAuthStateChanged} from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { getDatabase, ref, child, get, onValue } from "firebase/database";
 import { useNavigate } from 'react-router-dom';

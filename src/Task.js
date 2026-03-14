@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import { removeTask, setTaskDone } from "./backend";
+import { setTaskDone } from "./backend";
 import "./Dashboard.css";
 
-import bootstrap from 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 

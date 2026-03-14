@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {checkLogin} from "./backend";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, validatePassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged } from "firebase/auth";
 
 import InfoToast from './InfoToast';
 
-import bootstrap from 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { useNavigate } from 'react-router-dom';

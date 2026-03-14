@@ -1,7 +1,4 @@
-import bootstrap from 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import DashboardOptionMenu from './DashboardOptionMenu';
 
 import SignOutButton from './SignOutButton';
 

@@ -6,7 +6,7 @@ import NewTask from "./NewTask"
 import "./Settings.css";
 import { getAuth, onAuthStateChanged, updateEmail, updatePassword } from "firebase/auth";
 
-import bootstrap, {Modal} from 'bootstrap';
+import { Modal } from 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 

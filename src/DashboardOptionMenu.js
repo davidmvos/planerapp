@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import {checkLogin, getSortingMode, setSortingMode} from "./backend";
+import { useState, useEffect } from 'react';
+import {getSortingMode, setSortingMode} from "./backend";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import InfoToast from './InfoToast';
 
-import bootstrap from 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 

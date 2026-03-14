@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {checkLogin, getSubjects} from "./backend";
+import { useState, useEffect } from 'react';
+import {getSubjects} from "./backend";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import "bootstrap/dist/css/bootstrap.min.css";

@@ -4,9 +4,6 @@ import { getAnalytics } from 'firebase/analytics';
 import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, onAuthStateChanged, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref, child, get, onValue, remove, set } from "firebase/database";
 
-import firebase from 'firebase/compat/app';
-import { useState } from 'react';
-
 import app from './env';
 
 

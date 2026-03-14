@@ -1,54 +1,48 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes, useNavigate, Navigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import Dashboard from './Dashboard';
 
 import Login from './Login';
-import CheckLoginExample from './CheckLoginExample';
-import { initializeApp } from 'firebase/app';
-import { getLoggedIn } from './backend';
 
-import bootstrap from 'bootstrap';
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import Signup from './Signup';
 import Settings from './Settings';
 
-const auth = getAuth();
 
 const App = () => {
-  const auth = getAuth();
-  const navigate = useNavigate();
-  const currentPath = window.location.pathname;
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // console.log(user);
-        // User is logged in, no need to navigate
-      } else {
+    const auth = getAuth();
+    const navigate = useNavigate();
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // console.log(user);
+            // User is logged in, no need to navigate
+        } else {
 
-        console.log('User not logged in');
+            console.log('User not logged in');
 
-        if (currentPath !== '/login' && currentPath !== '/signup') {
-          navigate('/login'); // Redirect to /login if not logged in
+            if (window.location.pathname !== '/login' && window.location.pathname !== '/signup') {
+            navigate('/login'); // Redirect to /login if not logged in
+            }
+            
         }
-        
-      }
-    });
+        });
 
-    return () => unsubscribe(); // Clean up the subscription on unmount
-  }, [auth, navigate]);
-  return (
-    <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/login" element={<Login inline={false} disableSignup={false}/>} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/test" element={<CheckLoginExample />} />
-      <Route path="/settings" element={<Settings />} />
-    </Routes>
-  );
+        return () => unsubscribe(); // Clean up the subscription on unmount
+    }, [auth, navigate]);
+    return (
+        <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/login" element={<Login inline={false} disableSignup={false}/>} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/settings" element={<Settings />} />
+        </Routes>
+    );
 };
 
 
