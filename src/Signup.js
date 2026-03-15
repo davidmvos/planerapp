@@ -19,11 +19,13 @@ export default function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('')
+    const [currentUser, setCurrentUser] = useState(null);
+
     const [privacyConsent, setPrivacyConsent] = useState(false);
 
     const [loginError, setLoginError] = useState(null);
 
-    const [passwordValid] = useState(false);
+    const [passwordValid, setPasswordValid] = useState(false);
 
     
 
@@ -33,11 +35,13 @@ export default function Signup() {
     const handleSignup = (event) => {
         event.preventDefault(); // Prevent default form submission
         console.log(checkLogin(email, password));
-        createUserWithEmailAndPassword(auth, email, password).then(() => {
+        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
             // Signed up 
+            setCurrentUser(userCredential.user);
             // ...
         })
         .catch((error) => {
+            const errorCode = error.code;
             const errorMessage = error.message;
             // alert(errorMessage + "Code " + errorCode);
             setLoginError(errorMessage);

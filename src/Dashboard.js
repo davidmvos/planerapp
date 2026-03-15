@@ -1,3 +1,4 @@
+import logo from './logo.svg';
 import './App.css';
 import { getAuth,  onAuthStateChanged} from 'firebase/auth';
 import { useEffect, useState } from 'react';
@@ -7,12 +8,14 @@ import DashboardOptionMenu from './DashboardOptionMenu';
 
 import "./Dashboard.css";
 
+import bootstrap, { Toast } from 'bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import InfoToast from './InfoToast';
 import Navbar from './Navbar';
 import NewTask from './NewTask';
 import Task from './Task';
+import SignOutButton from './SignOutButton';
 import { getSubjects } from './backend';
 
 
@@ -24,6 +27,7 @@ function Dashboard() {
     const auth = getAuth();
 
     const [email, setEmail] = useState(null);
+    const [user, setUser] = useState(null);
     const [tasks, setTasks] = useState(null);
     const [sortingMode, setSortingMode] = useState(null);
 
@@ -67,6 +71,7 @@ function Dashboard() {
 
             if (user) {
                 setEmail(user.email);
+                setUser(user);
 
                 getSubjects(user).then(data => {
                     setSubjects(data);
@@ -101,6 +106,7 @@ function Dashboard() {
 
             } else {
                 setEmail(null);
+                setUser(null);
                 setTasks(null);
                 navigate("/login");
             }
@@ -112,7 +118,7 @@ function Dashboard() {
             if (unsubTasks) unsubTasks();
             if (unsubSorting) unsubSorting();
         };
-    }, [auth, navigate]);
+    }, [auth]);
 
 
 

@@ -80,7 +80,7 @@ function Login({inline, disableSignup, reLogin, callback}) {
         });
 
         return () => unsubscribe(); // Clean up the subscription on unmount
-    }, [navigate, currentPath, reLogin]);
+    }, [auth]);
 
     return (
         <>

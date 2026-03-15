@@ -19,11 +19,14 @@ auth.languageCode = "de";
 
 export default function Settings() {
     const [currentUser, setCurrentUser] = useState(null);
+    const [subjects, setSubjects] = useState(null)
 
     const [email, setEmail] = useState(''); 
     const [password, setPassword] = useState('');
 
     const [toastMsg, setToastMsg] = useState(null);
+
+    const [showLoginMask, setShowLoginMask] = useState(false);
     
 
 
@@ -31,12 +34,12 @@ export default function Settings() {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setCurrentUser(user);
-                getSubjects(user).catch(() => {});
+                getSubjects(user).then(data => {setSubjects(data)});
             }
         });
 
         return () => unsubscribe(); // Clean up the subscription on unmount
-    }, []);
+    }, [auth]);
 
     function handlePasswordChange(event) {
         event.preventDefault();
