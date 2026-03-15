@@ -129,6 +129,9 @@ function Dashboard() {
     <>
     <Navbar optionMenu={<DashboardOptionMenu />}/>
     <NewTask/>
+    <div className="container-xxl my-3 px-3">
+        <button className="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#newTaskModal">Neue Aufgabe</button>
+    </div>
     <div className="container-xxl my-3 d-flex flex-row flex-wrap" data-masonry='{"percentPosition": true, "columnWidth": 200, "itemSelector": ".grid-item"}'>
         {
             subjects && sortedTasks.map(([key, value]) => (
