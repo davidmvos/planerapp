@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { getAuth,  onAuthStateChanged} from 'firebase/auth';
 import { useEffect, useState } from 'react';

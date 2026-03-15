@@ -84,7 +84,7 @@ export default function Task({ id, name, desc, due, category }) {
                 </div>
                 <div className="card-body">
                     <h5 className="card-title">{name}</h5>
-                    <p className="card-text"><i>Bis zum {isoToNormal(due)}</i></p>
+                    <p className="card-text text-secondary">Bis zum {isoToNormal(due)}</p>
                     <p className="card-text">{desc}</p>
                 </div>
                 <div className="card-footer">
@@ -98,7 +98,7 @@ export default function Task({ id, name, desc, due, category }) {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5 text-danger">Achtung</h1>
+                            <h1 className="modal-title fs-5 text-danger-emphasis">Achtung</h1>
                         </div>
                         <div className="modal-body">
                             Aufgabe wird als erledigt markiert
@@ -163,7 +163,7 @@ export default function Task({ id, name, desc, due, category }) {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5 text-danger">Achtung</h1>
+                            <h1 className="modal-title fs-5 text-danger-emphasis">Achtung</h1>
                         </div>
                         <div className="modal-body">
                             Es können nicht gespeicherte Daten verloren gehen
