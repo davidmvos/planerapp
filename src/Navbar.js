@@ -1,11 +1,9 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-
 import SignOutButton from './SignOutButton';
 
 
 export default function Navbar({optionMenu}) {
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg sticky-top bg-body-tertiary">
             <div className="container-fluid">
 
                 <a className="navbar-brand" href="#">Navbar</a>

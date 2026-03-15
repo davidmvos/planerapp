@@ -8,8 +8,6 @@ import DashboardOptionMenu from './DashboardOptionMenu';
 
 import "./Dashboard.css";
 
-import bootstrap, { Toast } from 'bootstrap';
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import InfoToast from './InfoToast';
 import Navbar from './Navbar';

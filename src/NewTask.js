@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import {getSubjects} from "./backend";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-
 import { createNewTask } from './backend';
 import InfoToast from './InfoToast';
 
