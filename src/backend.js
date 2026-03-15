@@ -2,7 +2,7 @@
 // Import the functions you need from the SDKs you need
 import { getAnalytics } from 'firebase/analytics';
 import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, onAuthStateChanged, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref, child, get, onValue, remove, set } from "firebase/database";
+import { getDatabase, ref, child, get, onValue, remove, set, update } from "firebase/database";
 
 import app from './env';
 
@@ -63,6 +63,26 @@ export async function createNewTask(title, desc, due, category, user) {
     }
     const taskRef = ref(db, "userdata/" + user.uid + "/tasks/" + taskId);
     return set(taskRef, task)
+        .then(() => {
+            return { "success": true };
+        })
+        .catch((error) => {
+            return { "success": false, "error": error };
+        });
+}
+
+export async function editTask(id, title, desc, due, category, user) {
+    const taskId = id;
+
+    const task = {
+        "title": title,
+        "task": desc,
+        "due": due,
+        "subject": category,
+        "key": taskId
+    }
+    const taskRef = ref(db, "userdata/" + user.uid + "/tasks/" + taskId);
+    return update(taskRef, task)
         .then(() => {
             return { "success": true };
         })

@@ -133,7 +133,7 @@ function Dashboard() {
     <div className="container-xxl my-3 d-flex flex-row flex-wrap" data-masonry='{"percentPosition": true, "columnWidth": 200, "itemSelector": ".grid-item"}'>
         {
             subjects && sortedTasks.map(([key, value]) => (
-                <Task key={key} name={value.title} id={key} due={value.due} category={subjects[value.subject.valueOf()]} desc={value.task} />
+                <Task key={key} name={value.title} id={key} due={value.due} category={value.subject} desc={value.task} />
             ))
         }
     
