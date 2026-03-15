@@ -11,26 +11,18 @@ Dieser Hausaufgaben-Planer läfut mit Hilfe von **React** und **Firebase**.
 
 ## Installation
 
-Damit dieses projekt selber ausgeführt werden kann, muss man die Datei `env.js` im src-Ordner anlegen, bevor man das Projekt kompiliert. Dort muss folgende Struktur vorhanden sein. 
+Damit dieses projekt selber ausgeführt werden kann, muss man die Datei `.env` im Projektordner anlegen.
 
 **Diese Daten bekommt man auch, wenn man eine neue Firebase app registriert. Dort fehlt aber die `databaseURL`, weshalb sie auf jeden Fall ergäntzt werden muss!**
-```js
-import { initializeApp } from 'firebase/app';
-
-const firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: "",
-    measurementId: "", // optional
-    databaseURL: "" // URL des RealtimeDB servers
-};
-
-const app = initializeApp(firebaseConfig);
-
-export default app;
+```txt
+REACT_APP_API_KEY="..."
+REACT_APP_AUTH_DOMAIN="..."
+REACT_APP_PROJECT_ID="..."
+REACT_APP_STORAGE_BUCKET="..."
+REACT_APP_MESSAGING_SENDER_ID="..."
+REACT_APP_APP_ID="..."
+REACT_APP_MEASUREMENT_ID="..."
+REACT_APP_DATABASE_URL="..."
 ```
 
 ## Roadmap
