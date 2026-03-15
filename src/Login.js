@@ -4,7 +4,6 @@ import { getAuth, onAuthStateChanged, reauthenticateWithCredential } from "fireb
 
 import InfoToast from './InfoToast';
 
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import { useNavigate } from 'react-router-dom';
 import { EmailAuthProvider } from 'firebase/auth/web-extension';

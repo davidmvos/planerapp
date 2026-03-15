@@ -1,6 +1,3 @@
-
-import "bootstrap/dist/css/bootstrap.min.css";
-
 import { useEffect, useState } from 'react';
 import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth';
 

@@ -4,8 +4,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { setTaskDone } from "./backend";
 import "./Dashboard.css";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-
 
 
 export default function Task({ id, name, desc, due, category }) {

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function InfoToast({ message }) {
     const [showToast, setShowToast] = useState(false);

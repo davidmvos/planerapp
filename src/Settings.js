@@ -7,7 +7,6 @@ import "./Settings.css";
 import { getAuth, onAuthStateChanged, updateEmail, updatePassword } from "firebase/auth";
 
 import { Modal } from 'bootstrap';
-import "bootstrap/dist/css/bootstrap.min.css";
 
 
 import { getSubjects } from "./backend";

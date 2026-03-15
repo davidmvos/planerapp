@@ -4,8 +4,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import InfoToast from './InfoToast';
 
-import "bootstrap/dist/css/bootstrap.min.css";
-
 
 
 
