@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth';
+import ReactDOM from 'react-dom';
 
 
 export default function SignOutButton() {
@@ -30,23 +31,24 @@ export default function SignOutButton() {
         <button className='btn btn-outline-primary' data-bs-toggle="modal" data-bs-target="#signOutModal">
             Logout
         </button>
-
-        <div className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="signOutModal">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5 text-danger">Ausloggen?</h1>
-                    </div>
-                    <div className="modal-body">
-                        Du wirst auf diesem Gerät ausgeloggt und musst dich neu anmelden. Deine Daten bleiben gespeichert.
-                    </div>
-                    <div className="modal-footer">
-                        <button className="btn btn-outline-secondary" data-bs-dismiss="modal" data-bs-target="#signOutModal">Zurück</button>
-                        {currentUser && <button className="btn btn-danger" data-bs-dismiss="modal" onClick={handleLogout} data-bs-target="#signOutModal">Ausloggen</button>}
+        {ReactDOM.createPortal(
+            <div className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="signOutModal">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5 text-danger">Ausloggen?</h1>
+                        </div>
+                        <div className="modal-body">
+                            Du wirst auf diesem Gerät ausgeloggt und musst dich neu anmelden. Deine Daten bleiben gespeichert.
+                        </div>
+                        <div className="modal-footer">
+                            <button className="btn btn-outline-secondary" data-bs-dismiss="modal" data-bs-target="#signOutModal">Zurück</button>
+                            {currentUser && <button className="btn btn-danger" data-bs-dismiss="modal" onClick={handleLogout} data-bs-target="#signOutModal">Ausloggen</button>}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        , document.body)}
         
         </>
 
