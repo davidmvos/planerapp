@@ -1,8 +1,7 @@
 
 // Import the functions you need from the SDKs you need
-import { getAnalytics } from 'firebase/analytics';
-import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, onAuthStateChanged, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref, child, get, onValue, remove, set } from "firebase/database";
+import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, onAuthStateChanged } from 'firebase/auth';
+import { getDatabase, ref, child, get, remove, set } from "firebase/database";
 
 import app from './env';
 
@@ -11,7 +10,6 @@ import app from './env';
 //const app = initializeApp(firebaseConfig);
 
 
-const analytics = getAnalytics(app);
 const auth = getAuth(app); // Correctly getting the auth instance
 const db = getDatabase(app);
 
@@ -19,7 +17,6 @@ const db = getDatabase(app);
 var loggedIn = false;
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        const uid = user.uid;
         loggedIn = true;
     } else {
     }
