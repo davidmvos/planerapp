@@ -9,7 +9,9 @@ import Dashboard from './Dashboard';
 import Login from './Login';
 
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
+
+import "./themes/spacelab.min.css";
 import Signup from './Signup';
 import Settings from './Settings';
 
