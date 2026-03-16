@@ -20,6 +20,10 @@ function isoToNormal(isoDate) {
 export default function Task({ id, name, desc, due, category }) {
     const auth = getAuth();
 
+    const today = new Date().toISOString().split('T')[0];
+    
+    const isNextDateEqual = (date1, date2) => new Date(date1.getTime() + 86400000).toDateString() === new Date(date2).toDateString();
+
     const [currentUser, setCurrentUser] = useState(null);
 
     const [taskName, setTaskName] = useState(name);
@@ -78,7 +82,7 @@ export default function Task({ id, name, desc, due, category }) {
 
     return (
         <>
-            <div className="card mx-sm-0 mx-sm-2 my-2 col-sm-3 p-0 task-card" id={id} style={{ minWidth: 300 + "px" }}>
+            <div className={`card mx-sm-0 mx-sm-2 my-2 col-sm-3 p-0 task-card ${due<today? "border-danger" : ""} ${due===today? "border-warning" : ""} ${isNextDateEqual(new Date(today), new Date(due))? "border-warning" : ""} `} id={id} style={{ minWidth: 300 + "px" }}>
                 <div className="card-header">
                     {taskCategoryPrettyName && taskCategoryPrettyName}
                 </div>
