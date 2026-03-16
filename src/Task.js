@@ -52,10 +52,10 @@ export default function Task({ id, name, desc, due, category }) {
     }
 
     function resetForm() {
-        document.getElementById("taskName").value = name;
-        document.getElementById("taskDescription").value = desc;
-        document.getElementById("taskDue").value = due;
-        document.getElementById("taskCategory").value = category;
+        document.getElementById("taskName-"+ id).value = name;
+        document.getElementById("taskDescription-"+ id).value = desc;
+        document.getElementById("taskDue-"+ id).value = due;
+        document.getElementById("taskCategory-"+ id).value = category;
 
         setTaskName(name);
         setTaskDesc(desc);
@@ -126,22 +126,22 @@ export default function Task({ id, name, desc, due, category }) {
                         <div className="modal-body">
                             <form>
                                 <div className="mb-2">
-                                    <label className="form-label" htmlFor="taskName">Überschrift</label>
-                                    <input type="text" className="form-control" id="taskName" value={taskName} onChange={(e) => setTaskName(e.target.value)}/>
+                                    <label className="form-label" htmlFor={"taskName-"+ id}>Überschrift</label>
+                                    <input type="text" className="form-control" id={"taskName-"+ id} value={taskName} onChange={(e) => setTaskName(e.target.value)}/>
                                 </div>
                                 <div className="mb-2">
-                                    <label className="form-label" htmlFor="taskDescription">Aufgabe</label>
-                                    <textarea className="form-control" id="taskDescription" value={taskDesc} onChange={(e) => setTaskDesc(e.target.value)}></textarea>
+                                    <label className="form-label" htmlFor={"taskDescription-"+ id}>Aufgabe</label>
+                                    <textarea className="form-control" id={"taskDescription-"+ id} value={taskDesc} onChange={(e) => setTaskDesc(e.target.value)}></textarea>
                                 </div>
                                 <div className="mb-2">
-                                    <label className="form-label" htmlFor="taskDue">Enddatum</label>
-                                    <input type="date" className="form-control" id="taskDue" value={taskDue} onChange={(e) => setTaskDue(e.target.value)} />
+                                    <label className="form-label" htmlFor={"taskDue-"+ id}>Enddatum</label>
+                                    <input type="date" className="form-control" id={"taskDue-"+ id} value={taskDue} onChange={(e) => setTaskDue(e.target.value)} />
                                 </div>
                                 <div className="mb-2">
-                                    <label className="form-label" htmlFor="taskCategory">Fach</label>
+                                    <label className="form-label" htmlFor={"taskCategory-"+ id}>Fach</label>
                                     <select 
                                     className="form-select" 
-                                    id="taskCategory" 
+                                    id={"taskCategory-"+ id} 
                                     onChange={(e) => setTaskCategory(e.target.value)}>
                                         
                                         {subjects && Object.entries(subjects).map(([key, value]) => (
