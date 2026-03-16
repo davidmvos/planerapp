@@ -36,7 +36,7 @@ export default function SignOutButton() {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5 text-danger">Ausloggen?</h1>
+                            <h1 className="modal-title fs-5 text-danger-emphasis">Ausloggen?</h1>
                         </div>
                         <div className="modal-body">
                             Du wirst auf diesem Gerät ausgeloggt und musst dich neu anmelden. Deine Daten bleiben gespeichert.
