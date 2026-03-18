@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "PlanerApp",
+  "name": "PlanerApp Hausaufgabenplaner",
   "icons": [
     {
       "src": "logo_filled_bg.png",

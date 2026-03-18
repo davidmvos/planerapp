@@ -106,7 +106,7 @@ export default function NewTask() {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5 text-danger">Achtung</h1>
+                            <h1 className="modal-title fs-5 text-danger-emphasis">Erstellung abbrechen?</h1>
                         </div>
                         <div className="modal-body">
                             Es können nicht gespeicherte Daten verloren gehen

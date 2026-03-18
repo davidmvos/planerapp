@@ -32,11 +32,11 @@ export default function SignOutButton() {
             Logout
         </button>
         {ReactDOM.createPortal(
-            <div className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="signOutModal">
+            <div className="modal fade" id="signOutModal" tabIndex={-1}>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5 text-danger">Ausloggen?</h1>
+                            <h1 className="modal-title fs-5 text-danger-emphasis">Ausloggen?</h1>
                         </div>
                         <div className="modal-body">
                             Du wirst auf diesem Gerät ausgeloggt und musst dich neu anmelden. Deine Daten bleiben gespeichert.
