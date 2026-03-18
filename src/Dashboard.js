@@ -138,7 +138,7 @@ function Dashboard() {
                 <Task key={key} name={value.title} id={key} due={value.due} category={value.subject} desc={value.task} />
             ))
         }
-        {sortedTasks && sortedTasks.length==0? "Alles erledigt :)" : ""}
+        {sortedTasks && sortedTasks.length === 0 ? "Alles erledigt :)" : ""}
     
     </div>
 
