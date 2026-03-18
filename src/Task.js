@@ -98,11 +98,11 @@ export default function Task({ id, name, desc, due, category }) {
             </div>
 
 
-            <div className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id={id + "-delete"}>
+            <div className="modal fade" id={id + "-delete"}>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5 text-danger-emphasis">Achtung</h1>
+                            <h1 className="modal-title fs-5 text-danger-emphasis">Als erledigt markieren?</h1>
                         </div>
                         <div className="modal-body">
                             Aufgabe wird als erledigt markiert
@@ -167,14 +167,14 @@ export default function Task({ id, name, desc, due, category }) {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5 text-danger-emphasis">Achtung</h1>
+                            <h1 className="modal-title fs-5 text-danger-emphasis">Änderungen verwerfen?</h1>
                         </div>
                         <div className="modal-body">
                             Es können nicht gespeicherte Daten verloren gehen
                         </div>
                         <div className="modal-footer">
                             <button className="btn btn-outline-secondary" data-bs-target={"#editTaskModal-" + id} data-bs-toggle="modal">Zurück</button>
-                            <button className="btn btn-danger" data-bs-target={"#editTaskCancelModal-" + id} data-bs-dismiss="modal" onClick={resetForm} >Änderung abbrechen</button>
+                            <button className="btn btn-danger" data-bs-target={"#editTaskCancelModal-" + id} data-bs-dismiss="modal" onClick={resetForm} >Verwerfen</button>
                         </div>
                     </div>
                 </div>
