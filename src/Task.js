@@ -98,7 +98,7 @@ export default function Task({ id, name, desc, due, category }) {
             </div>
 
 
-            <div className="modal fade" id={id + "-delete"}>
+            <div className="modal fade" id={id + "-delete"} tabIndex={-1}>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
