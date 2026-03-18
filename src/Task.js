@@ -82,18 +82,18 @@ export default function Task({ id, name, desc, due, category }) {
 
     return (
         <>
-            <div className={`card mx-sm-0 mx-sm-2 my-2 col-sm-3 p-0 task-card ${due<today? "border-danger" : ""} ${due===today? "border-warning" : ""} ${isNextDateEqual(new Date(today), new Date(due))? "border-warning" : ""} `} id={id} style={{ minWidth: 300 + "px" }}>
+            <div className={`card mx-sm-0 mx-sm-2 my-2 col-sm-3 p-0 task-card  ${due<today? "bg-danger-subtle text-dark" : ""} ${due<today? "border-danger" : ""} ${due===today? "border-warning" : ""} ${isNextDateEqual(new Date(today), new Date(due))? "border-warning" : ""} `} id={id} style={{ minWidth: 300 + "px" }}>
                 <div className="card-header">
                     {taskCategoryPrettyName && taskCategoryPrettyName}
                 </div>
                 <div className="card-body">
                     <h5 className="card-title">{name}</h5>
-                    <p className="card-text text-secondary">Bis zum {isoToNormal(due)}</p>
+                    <p className={`card-text ${due<today? "text-danger" : ""} ${due===today? "text-warning" : "text-secondary"}`}>Bis zum {isoToNormal(due)}</p>
                     <p className="card-text">{desc}</p>
                 </div>
-                <div className="card-footer">
-                    <button className="btn btn-outline-primary me-2" data-bs-target={"#editTaskModal-" + id} data-bs-toggle="modal">Bearbeiten</button>
-                    <button className="btn btn-outline-secondary" data-bs-target={"#" + id + "-delete"} data-bs-toggle="modal">Erledigt</button>
+                <div className={`card-footer`}>
+                    <button className={`btn btn-outline-primary me-2`} data-bs-target={"#editTaskModal-" + id} data-bs-toggle="modal">Bearbeiten</button>
+                    <button className={`btn  ${due<today? "btn-outline-warning" : "btn-outline-secondary"}`} data-bs-target={"#" + id + "-delete"} data-bs-toggle="modal">Erledigt</button>
                 </div>
             </div>
 
