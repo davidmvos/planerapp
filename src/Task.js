@@ -17,10 +17,18 @@ function isoToNormal(isoDate) {
     return `${day}.${month}.${year}`;
 }
 
+function getLocalTodayISODate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 export default function Task({ id, name, desc, due, category }) {
     const auth = getAuth();
 
-    const today = new Date().toISOString().split('T')[0];
+    const today = getLocalTodayISODate();
     
     const isNextDateEqual = (date1, date2) => new Date(date1.getTime() + 86400000).toDateString() === new Date(date2).toDateString();
 
