@@ -32,7 +32,7 @@ export default function SignOutButton() {
             Logout
         </button>
         {ReactDOM.createPortal(
-            <div className="modal fade" id="signOutModal">
+            <div className="modal fade" id="signOutModal" tabIndex={-1}>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
