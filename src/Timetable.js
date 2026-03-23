@@ -122,7 +122,7 @@ function Timetable() {
                     </thead>
                     <tbody>
                         <tr>
-                            <td scope="row">08:00 - 08:45</td>
+                            <td>08:00 - 08:45</td>
                             <TimetableSubject day={0} block={0} subjectId={timetable[0][0]} subjects={subjects}/>
                             <TimetableSubject day={1} block={0} subjectId={timetable[1][0]} subjects={subjects}/>
                             <TimetableSubject day={2} block={0} subjectId={timetable[2][0]} subjects={subjects}/>
@@ -131,7 +131,7 @@ function Timetable() {
 
                         </tr>
                         <tr className="">
-                            <td scope="row">08:50 - 09:35</td>
+                            <td>08:50 - 09:35</td>
                             <TimetableSubject day={0} block={1} subjectId={timetable[0][1]} subjects={subjects}/>
                             <TimetableSubject day={1} block={1} subjectId={timetable[1][1]} subjects={subjects}/>
                             <TimetableSubject day={2} block={1} subjectId={timetable[2][1]} subjects={subjects}/>
@@ -139,7 +139,7 @@ function Timetable() {
                             <TimetableSubject day={4} block={1} subjectId={timetable[4][1]} subjects={subjects}/>
                         </tr>
                         <tr className="table-secondary">
-                            <td scope="row">09:35 - 09:50</td>
+                            <td>09:35 - 09:50</td>
                             <td colspan="5" className="text-center">Große Pause</td>
                         </tr>
                         <tr>
@@ -151,7 +151,7 @@ function Timetable() {
                             <TimetableSubject day={4} block={2} subjectId={timetable[4][2]} subjects={subjects}/>
                         </tr>
                         <tr>
-                            <td scope="row">10:45 - 11:30</td>
+                            <td>10:45 - 11:30</td>
                             <TimetableSubject day={0} block={3} subjectId={timetable[0][3]} subjects={subjects}/>
                             <TimetableSubject day={1} block={3} subjectId={timetable[1][3]} subjects={subjects}/>
                             <TimetableSubject day={2} block={3} subjectId={timetable[2][3]} subjects={subjects}/>
@@ -159,11 +159,11 @@ function Timetable() {
                             <TimetableSubject day={4} block={3} subjectId={timetable[4][3]} subjects={subjects}/>
                         </tr>
                         <tr className="table-secondary">
-                            <td scope="row">11:30 - 11:40</td>
+                            <td>11:30 - 11:40</td>
                             <td colspan="5" className="text-center">Kleine Pause</td>
                         </tr>
                         <tr>
-                            <td scope="row">11:45 - 12:30</td>
+                            <td>11:45 - 12:30</td>
                             <TimetableSubject day={0} block={4} subjectId={timetable[0][4]} subjects={subjects}/>
                             <TimetableSubject day={1} block={4} subjectId={timetable[1][4]} subjects={subjects}/>
                             <TimetableSubject day={2} block={4} subjectId={timetable[2][4]} subjects={subjects}/>
@@ -171,7 +171,7 @@ function Timetable() {
                             <TimetableSubject day={4} block={4} subjectId={timetable[4][4]} subjects={subjects}/>
                         </tr>
                         <tr>
-                            <td scope="row">12:35 - 13:20</td>
+                            <td>12:35 - 13:20</td>
                             <TimetableSubject day={0} block={5} subjectId={timetable[0][5]} subjects={subjects}/>
                             <TimetableSubject day={1} block={5} subjectId={timetable[1][5]} subjects={subjects}/>
                             <TimetableSubject day={2} block={5} subjectId={timetable[2][5]} subjects={subjects}/>
@@ -179,11 +179,11 @@ function Timetable() {
                             <TimetableSubject day={4} block={5} subjectId={timetable[4][5]} subjects={subjects}/>
                         </tr>
                         <tr className="table-secondary">
-                            <td scope="row">13:20 - 13:55</td>
+                            <td>13:20 - 13:55</td>
                             <td colspan="5" className="text-center">Mittagspause</td>
                         </tr>
                         <tr>
-                            <td scope="row">14:00 - 14:45</td>
+                            <td>14:00 - 14:45</td>
                             <TimetableSubject day={0} block={6} subjectId={timetable[0][6]} subjects={subjects}/>
                             <TimetableSubject day={1} block={6} subjectId={timetable[1][6]} subjects={subjects}/>
                             <TimetableSubject day={2} block={6} subjectId={timetable[2][6]} subjects={subjects}/>
@@ -191,7 +191,7 @@ function Timetable() {
                             <TimetableSubject day={4} block={6} subjectId={timetable[4][6]} subjects={subjects}/>
                         </tr>
                         <tr>
-                            <td scope="row">14:45 - 15:30</td>
+                            <td>14:45 - 15:30</td>
                             <TimetableSubject day={0} block={7} subjectId={timetable[0][7]} subjects={subjects}/>
                             <TimetableSubject day={1} block={7} subjectId={timetable[1][7]} subjects={subjects}/>
                             <TimetableSubject day={2} block={7} subjectId={timetable[2][7]} subjects={subjects}/>
@@ -199,7 +199,7 @@ function Timetable() {
                             <TimetableSubject day={4} block={7} subjectId={timetable[4][7]} subjects={subjects}/>
                         </tr>
                         <tr>
-                            <td scope="row">15:30 - 16:15</td>
+                            <td>15:30 - 16:15</td>
                             <TimetableSubject day={0} block={8} subjectId={timetable[0][8]} subjects={subjects}/>
                             <TimetableSubject day={1} block={8} subjectId={timetable[1][8]} subjects={subjects}/>
                             <TimetableSubject day={2} block={8} subjectId={timetable[2][8]} subjects={subjects}/>
