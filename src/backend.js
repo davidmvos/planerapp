@@ -208,6 +208,35 @@ export function setCategories(subjectList, user) {
         });
 }
 
+const default_timetable = {
+    0: [2, 2, 4, 4],
+    1: [7, 7, 5, 5],
+    2: [8, 8, 3, 3],
+    3: [20, 20, 14, 14],
+    4: [12, 12, 16, 16]
+}
+
+export async function getTimetable(user) {
+    const dataRef = ref(db, "userdata/" + user.uid + "/timetable/");
+    return get(dataRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                return snapshot.val();
+
+            }
+            else {
+                // setCategories(defaultSubjects, user);
+                // keine Daten existieren
+                return default_timetable;
+                // return false;
+            }
+
+        })
+        .catch((error) => {
+            return { "success": false, "error": error };
+        });
+}
+
 export function getLoggedIn() {
     return loggedIn;
 }
