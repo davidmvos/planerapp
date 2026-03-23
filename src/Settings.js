@@ -13,6 +13,8 @@ import { getSubjects } from "./backend";
 import InfoToast from "./InfoToast";
 import Login from "./Login";
 
+import EmptyOptionMenu from "./EmptyOptionMenu";
+
 const auth = getAuth();
 auth.languageCode = "de";
 
@@ -98,7 +100,7 @@ export default function Settings() {
     return (
 
         <>
-        <Navbar optionMenu={<ul className="dropdown-menu"><li><a className="dropdown-item" href="." data-bs-toggle="modal" data-bs-target="#newTaskModal">Neue Aufgabe</a></li></ul>} />
+        <Navbar optionMenu={<EmptyOptionMenu />} />
         <NewTask />
         <div className="container mt-3">
             <h1>Einstellungen</h1>

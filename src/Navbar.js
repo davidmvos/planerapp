@@ -29,7 +29,7 @@ export default function Navbar({optionMenu}) {
                         {optionMenu}
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link disabled" aria-disabled="true">Stundenplan</a>
+                        <a className={currentPath==="/stundenplan" || currentPath === "/timetable"? "nav-link active" : "nav-link"} href="./timetable">Stundenplan</a>
                     </li>
 
                     <li className="nav-item">

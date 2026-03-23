@@ -14,6 +14,7 @@ import Login from './Login';
 import "./themes/spacelab.min.css";
 import Signup from './Signup';
 import Settings from './Settings';
+import Timetable from './Timetable';
 
 
 const App = () => {
@@ -43,6 +44,8 @@ const App = () => {
         <Route path="/login" element={<Login inline={false} disableSignup={false}/>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/timetable" element={<Timetable />} />
+        <Route path="/stundenplan" element={<Timetable />} />
         </Routes>
     );
 };
