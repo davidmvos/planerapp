@@ -19,6 +19,10 @@ function TimetableSubject({day, block, subjectId, subjects}) {
     const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
+        setSubject(subjectId);
+    }, [subjectId]);
+
+    useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setCurrentUser(user);
@@ -95,36 +99,35 @@ function Timetable() {
 
 
 
-                getSubjects(user).then(data => {
-                    setSubjects(data);
-                    localStorage.setItem("planerSubjects", JSON.stringify(data));
-                });
-
-                getTimetable(user).then(data => {
-                    setTimetable(data); 
-                    localStorage.setItem("planerTimetable", JSON.stringify(data));
-                });
-
                 try {
                     let localTimetable = localStorage.getItem("planerTimetable");
                     let localSubjects = localStorage.getItem("planerSubjects");
 
-                    if (localTimetable !== null && localSubjects !== null) {
+                    if (localTimetable !== null) {
                         setTimetable(JSON.parse(localTimetable));
+                    }
+                    if (localSubjects !== null) {
                         setSubjects(JSON.parse(localSubjects));  
                     }
-
                 } catch (e) {
                     console.warn(e);
                 }
 
-                
+                getSubjects(user).then(data => {
+                    if (data) {
+                        setSubjects(data);
+                        localStorage.setItem("planerSubjects", JSON.stringify(data));
+                    }
+                });
+
                 const timetableRef = ref(getDatabase(), "userdata/" + user.uid + "/timetable/");
 
                 unsubTimetable = onValue(timetableRef, (snapshot) => {
                     const data = snapshot.val();
-                    setTimetable(data);
-                    localStorage.setItem("planerTimetable", JSON.stringify(data));
+                    if (data) {
+                        setTimetable(data);
+                        localStorage.setItem("planerTimetable", JSON.stringify(data));
+                    }
                 });
 
             }
