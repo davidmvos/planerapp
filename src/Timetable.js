@@ -50,7 +50,7 @@ function TimetableSubject({day, block, subjectId, subjects}) {
                     <select 
                     className="form-select" 
                     id={`changeSubject-${day}-${block}`}
-                    style={{maxWidth: "50%", margin: "0px"}}
+                    style={{maxWidth: "90%", margin: "0px", minWidth: "150px"}}
                     value={subject}
                     onChange={(e) => {
                         setSubject(e.target.value);
@@ -66,6 +66,7 @@ function TimetableSubject({day, block, subjectId, subjects}) {
                         ))}
 
                     </select>
+                    <button className="btn btn-danger mt-3" onClick={(e) => {setSubjectEditMode(false);}}>Abbrechen</button>
                 </span>
             </td>
         )
@@ -107,7 +108,7 @@ function Timetable() {
             <Navbar optionMenu={<EmptyOptionMenu />}/>
             <NewTask/>
 
-            <div className="container-xxl mt-4">
+            <div className="container-xxl mt-4" style={{overflowX: "scroll"}}>
                 <h2 className="text-center">Stundenplan</h2>
                 <table className="table table-responsive table-bordered table-hover">
                     <thead>
