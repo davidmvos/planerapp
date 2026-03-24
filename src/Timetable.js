@@ -5,13 +5,14 @@ import NewTask from "./NewTask";
 import { getSubjects, getTimetable, setBlock } from "./backend";
 import { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged, updateEmail, updatePassword } from "firebase/auth";
+import { getDatabase, ref, child, get, onValue  } from "firebase/database";
 
 const auth = getAuth();
 auth.languageCode = "de";
 
 function TimetableSubject({day, block, subjectId, subjects}) {
 
-    subjects[0] = "";
+    
 
     const [subjectEditMode, setSubjectEditMode] = useState(false);
     const [subject, setSubject] = useState(subjectId);
@@ -39,7 +40,7 @@ function TimetableSubject({day, block, subjectId, subjects}) {
     if (!subjectEditMode) {
         return (
             <td onClick={(e) => {setSubjectEditMode(true);}} style={{width: "15%"}}>
-                <span id={`subject-${day}-${block}`} >{subjects[subject]}</span>
+                <span id={`subject-${day}-${block}`} >{subjectId===0? "" : subjects[subject]}</span>
             </td>
         );
     }
@@ -81,16 +82,58 @@ function Timetable() {
     const [currentUser, setCurrentUser] = useState(null);
     const [timetable, setTimetable] = useState(null);
 
+
+
+
     useEffect(() => {
+
+        let unsubTimetable = null;
         const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (unsubTimetable) { unsubTimetable(); unsubTimetable = null; }
             if (user) {
                 setCurrentUser(user);
-                getSubjects(user).then(data => {setSubjects(data)});
-                getTimetable(user).then(data => {setTimetable(data)});
+
+
+
+                getSubjects(user).then(data => {
+                    setSubjects(data);
+                    localStorage.setItem("planerSubjects", JSON.stringify(data));
+                });
+
+                getTimetable(user).then(data => {
+                    setTimetable(data); 
+                    localStorage.setItem("planerTimetable", JSON.stringify(data));
+                });
+
+                try {
+                    let localTimetable = localStorage.getItem("planerTimetable");
+                    let localSubjects = localStorage.getItem("planerSubjects");
+
+                    if (localTimetable !== null && localSubjects !== null) {
+                        setTimetable(JSON.parse(localTimetable));
+                        setSubjects(JSON.parse(localSubjects));  
+                    }
+
+                } catch (e) {
+                    console.warn(e);
+                }
+
+                
+                const timetableRef = ref(getDatabase(), "userdata/" + user.uid + "/timetable/");
+
+                unsubTimetable = onValue(timetableRef, (snapshot) => {
+                    const data = snapshot.val();
+                    setTimetable(data);
+                    localStorage.setItem("planerTimetable", JSON.stringify(data));
+                });
+
             }
         });
 
-        return () => unsubscribe(); // Clean up the subscription on unmount
+        return () => {
+            unsubscribe(); // Clean up the subscription on unmount
+            if (unsubTimetable) unsubTimetable();
+        }
     }, [auth]);
 
     if (timetable === null) {
