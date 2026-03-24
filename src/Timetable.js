@@ -216,7 +216,7 @@ function Timetable() {
                         </tr>
                         <tr className="table-secondary">
                             <td>11:30 - 11:40</td>
-                            <td colspan="5" className="text-center">Kleine Pause</td>
+                            <td colSpan="5" className="text-center">Kleine Pause</td>
                         </tr>
                         <tr className={inTime(1145, 1230)}>
                             <td>11:45 - 12:30</td>
@@ -236,7 +236,7 @@ function Timetable() {
                         </tr>
                         <tr className="table-secondary">
                             <td>13:20 - 13:55</td>
-                            <td colspan="5" className="text-center">Mittagspause</td>
+                            <td colSpan="5" className="text-center">Mittagspause</td>
                         </tr>
                         <tr className={inTime(1400, 1445)}>
                             <td>14:00 - 14:45</td>
