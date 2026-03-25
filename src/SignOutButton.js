@@ -10,6 +10,7 @@ export default function SignOutButton() {
     function handleLogout() {
         if (currentUser) {
             signOut(auth);
+            localStorage.clear();
         }
     }
 
