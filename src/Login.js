@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import {checkLogin} from "./backend";
 import { getAuth, onAuthStateChanged, reauthenticateWithCredential } from "firebase/auth";
+import ReactDOM from 'react-dom';
 
 import InfoToast from './InfoToast';
 
@@ -29,6 +30,26 @@ function Login({inline, disableSignup, reLogin, callback}) {
 
     const [loginErrorState, setLoginErrorState] = useState("");
 
+    function handleError(error) {
+        if (error.code === "auth/invalid-email" || error.code === "auth/user-not-found" || error.code ==="auth/invalid-password" || error.code === "auth/invalid-credential" || error.code === "auth/wrong-password" || error.code === "auth/wrong-email") {
+            setLoginErrorState("is-invalid");
+            let msg = <b className='text-danger'>Falsche Zugangsdaten!</b>;
+            if (error.code === "auth/user-not-found") {
+                msg = <b className='text-danger'>Account wurde nicht gefunden</b>;
+            }
+            setToastError(msg);
+            setTimeout(() => {setToastError(null)}, 4000);
+            setTimeout(() => {setLoginErrorState("")}, 3050);
+        } else {
+            let msg = <b className='text-danger'>Fehler: {error.code}</b>;
+            setToastError(msg);
+            setLoginErrorState("is-invalid");
+
+            setTimeout(() => {setToastError(null)}, 4000);
+            setTimeout(() => {setLoginErrorState("")}, 3050);
+        }
+    }
+
 
 
     const handleLogin = (event) => {
@@ -45,9 +66,7 @@ function Login({inline, disableSignup, reLogin, callback}) {
                     }
                 })
                 .catch((error) => {
-                    let msg = <b className='text-danger'>{error.code}</b>; // TODO: Bessere Fehlernachrichten
-                    setToastError(msg);
-                    setTimeout(() => {setToastError(null)}, 4000)
+                    handleError(error);
                 });
             } else {
                 let msg = <b className='text-danger'>Falsche E-Mail-Addresse!</b>;
@@ -59,18 +78,7 @@ function Login({inline, disableSignup, reLogin, callback}) {
             checkLogin(email, password)
             .then((data) => {
                 if (!data.success) {
-                    if (data.error.code === "auth/invalid-email" || data.error.code === "auth/user-not-found" || data.error.code ==="auth/invalid-password" || data.error.code === "auth/invalid-credential") {
-                        setLoginErrorState("is-invalid");
-                        let msg = <b className='text-danger'>Falsche Zugangsdaten!</b>;
-                        if (data.error.code === "auth/user-not-found") {
-                            msg = <b className='text-danger'>Account wurde nicht gefunden</b>;
-                        }
-
-
-                        setToastError(msg);
-                        setTimeout(() => {setToastError(null)}, 4000);
-                        setTimeout(() => {setLoginErrorState("")}, 3050);
-                    }
+                    handleError(data.error);
                 } else {
                     setLoginErrorState("");
                 }
@@ -147,8 +155,10 @@ function Login({inline, disableSignup, reLogin, callback}) {
                 </div>
             </div>
         </div>
-        {loggedIn && <InfoToast message={"Eingeloggt!"}/>}
-        {toastError && <InfoToast message={toastError} />}
+
+
+        {loggedIn && ReactDOM.createPortal(<InfoToast message={"Eingeloggt!"}/>, document.body)}
+        {toastError && ReactDOM.createPortal(<InfoToast message={toastError} />, document.body)}
         </>
     )
 }
