@@ -6,8 +6,12 @@ Dieser Hausaufgaben-Planer läfut mit Hilfe von **React** und **Firebase**.
 ## Features
 - Account-Management mit Firebase Authentication Service
 - Erstellen und Löschen von Hausaufgaben
+- Stundenplan in JSON-Struktur
 - RealtimeDB mit JSON-Struktur
 - Bootstrap Design
+
+## Ausprobieren
+Eine gehostete Instanz mit der neusten Produktionsversion ist [online auf Vercel](https://planerapp.vercel.app) verfügbar.
 
 ## Installation
 
@@ -27,6 +31,5 @@ REACT_APP_DATABASE_URL="..."
 
 ## Roadmap
 - Accountverwaltung
-- Stundenplan
 - Reminder
 - Geteilte Aufgaben

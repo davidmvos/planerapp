@@ -208,6 +208,57 @@ export function setCategories(subjectList, user) {
         });
 }
 
+const default_timetable = {
+    0: [0, 0, 0, 0, 0, 0, 0, 0],
+    1: [0, 0, 0, 0, 0, 0, 0, 0],
+    2: [0, 0, 0, 0, 0, 0, 0, 0],
+    3: [0, 0, 0, 0, 0, 0, 0, 0],
+    4: [0, 0, 0, 0, 0, 0, 0, 0]
+}
+
+export async function getTimetable(user) {
+    const dataRef = ref(db, "userdata/" + user.uid + "/timetable/");
+    return get(dataRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                return snapshot.val();
+            }
+            else {
+                // setCategories(defaultSubjects, user);
+                // keine Daten existieren
+                setTimetable(user, default_timetable);
+                return default_timetable;
+                // return false;
+            }
+
+        })
+        .catch((error) => {
+            return { "success": false, "error": error };
+        });
+}
+
+export async function setTimetable(user, timetable) {
+    const dataRef = ref(db, "userdata/" + user.uid + "/timetable/");
+    set(dataRef, timetable)
+        .then(() => {
+            return { "success": true };
+        })
+        .catch((error) => {
+            return { "success": false, "error": error };
+        });
+}
+
+export async function setBlock(user, day, block, newSubject) {
+    const dataRef = ref(db, "userdata/" + user.uid + "/timetable/" + day + "/" + block + "/");
+    set(dataRef, newSubject)
+        .then(() => {
+            return { "success": true };
+        })
+        .catch((error) => {
+            return { "success": false, "error": error };
+        });
+}
+
 export function getLoggedIn() {
     return loggedIn;
 }
