@@ -129,6 +129,13 @@ function Timetable() {
                     }
                 });
 
+                getTimetable(user).then(data => {
+                    if (data) {
+                        setTimetable(data);
+                        localStorage.setItem("planerTimetable", JSON.stringify(data));
+                    }
+                });
+
                 const timetableRef = ref(getDatabase(), "userdata/" + user.uid + "/timetable/");
 
                 unsubTimetable = onValue(timetableRef, (snapshot) => {

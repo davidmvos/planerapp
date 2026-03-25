@@ -221,7 +221,13 @@ export async function getTimetable(user) {
     return get(dataRef)
         .then((snapshot) => {
             if (snapshot.exists()) {
-                return snapshot.val();
+                if (snapshot.val() !== null) {
+                    return snapshot.val();
+                } else {
+                    setTimetable(user, default_timetable);
+                    return default_timetable;  
+                }
+                
             }
             else {
                 // setCategories(defaultSubjects, user);

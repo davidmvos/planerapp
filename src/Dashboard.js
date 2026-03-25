@@ -70,7 +70,10 @@ function Dashboard() {
                 setUser(user);
 
                 getSubjects(user).then(data => {
-                    setSubjects(data);
+                    if (data) {
+                        setSubjects(data);
+                        localStorage.setItem("planerSubjects", JSON.stringify(data));
+                    }
                 });
                 
 
