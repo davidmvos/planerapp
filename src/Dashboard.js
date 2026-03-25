@@ -17,8 +17,7 @@ import { getSubjects } from './backend';
 
 
 
-
-
+import EmptyOptionMenu from "./EmptyOptionMenu";
 
 function Dashboard() {
     const auth = getAuth();
@@ -120,7 +119,16 @@ function Dashboard() {
 
 
     if (email === null ) {
-        return <p>Lade...</p>;
+        return (
+        <> 
+            <Navbar optionMenu={<EmptyOptionMenu />}/>
+            <div className="container-xxl my-3 px-3">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </div>
+            
+        </>);
     }
 
     const sortedTasks = getSortedTasks();
