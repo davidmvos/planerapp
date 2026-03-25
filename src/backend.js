@@ -38,12 +38,12 @@ function createRandomString(length) {
 
 
 export function checkLogin(email, password) {
-    return signInWithEmailAndPassword(auth, email, password) // Corrected call
+    return signInWithEmailAndPassword(auth, email, password)
         .then((userCredentials) => {
-            return { success: true, userCredentials }; // Use an object for return
+            return { success: true, userCredentials };
         })
         .catch((error) => {
-            return { success: false, error }; // Use an object for return
+            return { success: false, error };
         });
 
 }
