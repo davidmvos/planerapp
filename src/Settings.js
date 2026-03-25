@@ -4,7 +4,7 @@ import Navbar from "./Navbar"
 import NewTask from "./NewTask"
 
 import "./Settings.css";
-import { getAuth, onAuthStateChanged, updateEmail, updatePassword } from "firebase/auth";
+import { getAuth, onAuthStateChanged, updateEmail, updatePassword, validatePassword } from "firebase/auth";
 
 import { Modal } from 'bootstrap';
 
@@ -28,7 +28,24 @@ export default function Settings() {
     const [toastMsg, setToastMsg] = useState(null);
 
     const [showLoginMask, setShowLoginMask] = useState(false);
+
+    const [emailInvalid, setEmailInvalid] = useState(false);
+    const [passwordInvalid, setPasswordInvalid] = useState("");
     
+    function onPasswordChange(e) {
+        setPassword(e.target.value);
+
+        if (e.target.value !== "") {
+            validatePassword(getAuth(), e.target.value)
+            .then((status) => {
+                if (status.isValid) {
+                    setPasswordInvalid("is-valid");
+                } else if (!status.isValid) {
+                    setPasswordInvalid("is-invalid");
+                }
+            })
+        }
+    }
 
 
     useEffect(() => {
@@ -52,11 +69,15 @@ export default function Settings() {
                 let targetModal = new Modal(document.getElementById("loginModal"));
                 targetModal.show();
                 let msg = <b className="text-danger">Bitte aktuelle Zugangsdaten bestätgen!</b>;
-                setToastMsg(msg);
+                // setToastMsg(msg);
                 setTimeout(() => {setToastMsg(null)}, 4000);
             } 
             else {
-                let msg = <b className="text-danger">{error.message}</b>;
+                let msg = <b className="text-danger">Fehler: {error.code}</b>;
+                if (error.code === "auth/weak-password") {
+                    msg = "";
+                    setPasswordInvalid("is-invalid");
+                }
                 setToastMsg(msg);
                 setTimeout(() => {setToastMsg(null)}, 4000);
             }
@@ -73,11 +94,17 @@ export default function Settings() {
                 let targetModal = new Modal(document.getElementById("loginModal"));
                 targetModal.show();
                 let msg = <b className="text-danger">Bitte aktuelle Zugangsdaten bestätgen!</b>;
-                setToastMsg(msg);
+                // setToastMsg(msg);
                 setTimeout(() => {setToastMsg(null)}, 4000);
             } 
             else {
-                let msg = <b className="text-danger">{error.message}</b>;
+                setEmailInvalid(true);
+                setTimeout(() => setEmailInvalid(false), 3000);
+                let msg = <b className="text-danger">Fehler: {error.code}</b>;
+                if (error.code === "auth/invalid-email") {
+                    msg = <b className="text-danger">Fehlerhafte E-Mail-Addresse!</b>;
+                    msg = "";
+                }
                 setToastMsg(msg);
                 setTimeout(() => {setToastMsg(null)}, 4000);
             }
@@ -115,16 +142,18 @@ export default function Settings() {
                 <form className="mb-3">
                     <h3 className="fs-5">E-Mail</h3>
                     <div className="input-group input-group-auto-width">
-                        <input autoComplete="false" type="text" id="newEmail" name="newEmail" className="form-control" placeholder="Neue E-Mail" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                        <input autoComplete="false" type="text" id="newEmail" name="newEmail" className={`form-control ${emailInvalid? "is-invalid" : ""}`} placeholder="Neue E-Mail" value={email} onChange={(e) => setEmail(e.target.value)}></input>
                         <input type="submit" className="btn btn-primary" value="Speichern" onClick={(e) => {handleEmailChange(e);}}/>
+                        <div class="invalid-feedback">Ungültige E-Mail-Addresse!</div>
                     </div>
                     
                 </form>
                 <form className="mb-3">
                     <h3 className="fs-5">Passwort</h3>
                     <div className="input-group input-group-auto-width">
-                        <input autoComplete="false" type="password" id="newPassword" name="newPassword" className="form-control" placeholder="Neues Passwort" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                        <input autoComplete="false" type="password" id="newPassword" name="newPassword" className={`form-control ${passwordInvalid}`} placeholder="Neues Passwort" value={password} onChange={(e) => onPasswordChange(e)}></input>
                         <input type="submit" className="btn btn-primary" value="Speichern" onClick={(e) => {handlePasswordChange(e);}}/>
+                        <div class="invalid-feedback">Passwort zu schwach!</div>
                     </div>
                 </form>
             </div>
