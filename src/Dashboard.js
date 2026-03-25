@@ -123,8 +123,8 @@ function Dashboard() {
         <> 
             <Navbar optionMenu={<EmptyOptionMenu />}/>
             <div className="container-xxl my-3 px-3">
-                <div class="spinner-border" role="status">
-                    <span class="sr-only"></span>
+                <div className="spinner-border" role="status">
+                    <span className="sr-only"></span>
                 </div>
             </div>
             
