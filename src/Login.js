@@ -27,6 +27,8 @@ function Login({inline, disableSignup, reLogin, callback}) {
 
     const [toastError, setToastError] = useState(null);
 
+    const [loginErrorState, setLoginErrorState] = useState("");
+
 
 
     const handleLogin = (event) => {
@@ -54,7 +56,25 @@ function Login({inline, disableSignup, reLogin, callback}) {
             }
 
         } else {
-            checkLogin(email, password);
+            checkLogin(email, password)
+            .then((data) => {
+                if (!data.success) {
+                    if (data.error.code === "auth/invalid-email" || data.error.code === "auth/user-not-found" || data.error.code ==="auth/invalid-password" || data.error.code === "auth/invalid-credential") {
+                        setLoginErrorState("is-invalid");
+                        let msg = <b className='text-danger'>Falsche Zugangsdaten!</b>;
+                        if (data.error.code === "auth/user-not-found") {
+                            msg = <b className='text-danger'>Account wurde nicht gefunden</b>;
+                        }
+
+
+                        setToastError(msg);
+                        setTimeout(() => {setToastError(null)}, 4000);
+                        setTimeout(() => {setLoginErrorState("")}, 3050);
+                    }
+                } else {
+                    setLoginErrorState("");
+                }
+            });
         }
         
     };
@@ -97,7 +117,7 @@ function Login({inline, disableSignup, reLogin, callback}) {
                                     name="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)} // Update state on input change
-                                    className="form-control"
+                                    className={"form-control " + loginErrorState }
                                     required
                                     autoComplete="true"
                                 />
@@ -110,7 +130,7 @@ function Login({inline, disableSignup, reLogin, callback}) {
                                     name="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)} // Update state on input change
-                                    className="form-control"
+                                    className={"form-control " + loginErrorState }
                                     required
                                     autoComplete="true"
                                 />
