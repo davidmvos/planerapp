@@ -120,14 +120,14 @@ function Login({inline, disableSignup, reLogin, callback}) {
                             <div className='mb-3'>
                                 <label htmlFor="email" className="form-label" >E-Mail</label>
                                 <input
-                                    type="text"
+                                    type="email"
                                     id="email"
                                     name="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)} // Update state on input change
                                     className={"form-control " + loginErrorState }
                                     required
-                                    autoComplete="true"
+                                    autoComplete="email"
                                 />
                             </div>
                             <div className='mb-3'>
@@ -140,7 +140,7 @@ function Login({inline, disableSignup, reLogin, callback}) {
                                     onChange={(e) => setPassword(e.target.value)} // Update state on input change
                                     className={"form-control " + loginErrorState }
                                     required
-                                    autoComplete="true"
+                                    autoComplete="current-password"
                                 />
                             </div>
                             <br/>

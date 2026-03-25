@@ -142,18 +142,18 @@ export default function Settings() {
                 <form className="mb-3">
                     <h3 className="fs-5">E-Mail</h3>
                     <div className="input-group input-group-auto-width">
-                        <input autoComplete="false" type="text" id="newEmail" name="newEmail" className={`form-control ${emailInvalid? "is-invalid" : ""}`} placeholder="Neue E-Mail" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                        <input autoComplete="email" type="email" id="newEmail" name="newEmail" className={`form-control ${emailInvalid? "is-invalid" : ""}`} placeholder="Neue E-Mail" value={email} onChange={(e) => setEmail(e.target.value)}></input>
                         <input type="submit" className="btn btn-primary" value="Speichern" onClick={(e) => {handleEmailChange(e);}}/>
-                        <div class="invalid-feedback">Ungültige E-Mail-Addresse!</div>
+                        <div className="invalid-feedback">Ungültige E-Mail-Addresse!</div>
                     </div>
                     
                 </form>
                 <form className="mb-3">
                     <h3 className="fs-5">Passwort</h3>
                     <div className="input-group input-group-auto-width">
-                        <input autoComplete="false" type="password" id="newPassword" name="newPassword" className={`form-control ${passwordInvalid}`} placeholder="Neues Passwort" value={password} onChange={(e) => onPasswordChange(e)}></input>
+                            <input autoComplete="new-password" type="password" id="newPassword" name="newPassword" className={`form-control ${passwordInvalid}`} placeholder="Neues Passwort" value={password} onChange={(e) => onPasswordChange(e)}></input>
                         <input type="submit" className="btn btn-primary" value="Speichern" onClick={(e) => {handlePasswordChange(e);}}/>
-                        <div class="invalid-feedback">Passwort zu schwach!</div>
+                            <div className="invalid-feedback">Passwort zu schwach!</div>
                     </div>
                 </form>
             </div>
