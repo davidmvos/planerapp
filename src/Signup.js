@@ -84,13 +84,14 @@ export default function Signup() {
                             <div className="mb-3">
                                 <label htmlFor="signupEmail" className="form-label" >E-Mail</label>
                                 <input
-                                    type="text"
+                                    type="email"
                                     id="signupEmail"
                                     name="signupEmail"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)} // Update state on input change
                                     className="form-control"
                                     required
+                                    autoComplete="email"
                                 />
                             </div>
 
@@ -104,6 +105,7 @@ export default function Signup() {
                                     onChange={(e) => {setPassword(e.target.value); checkPasswords();}} // Update state on input change
                                     className={`form-control ${password === passwordRepeat ? "" : "is-invalid"}`}
                                     required
+                                    autoComplete="new-password"
                                 />
                             </div>
 
@@ -117,6 +119,7 @@ export default function Signup() {
                                     onChange={(e) => {setPasswordRepeat(e.target.value); checkPasswords();}} // Update state on input change
                                     className={`form-control ${password === passwordRepeat ? "" : "is-invalid"} ${passwordValid ? "is-valid" : ""}`}
                                     required
+                                    autoComplete="new-password"
                                 />
                             </div>
 
@@ -128,12 +131,12 @@ export default function Signup() {
                                         className='form-check-input'
                                         onChange={(e) => setPrivacyConsent(e.target.checked)} // Inline handler
                                 /> 
-                                <label for="privacy-consent" className='form-check-label'>
+                                <label htmlFor="privacy-consent" className='form-check-label'>
                                     Ich bin mit der Verarbeitung meiner Daten einverstanden
                                 </label>
                             </div>
                             <br/>
-                            <div classname="d-flex flex-row justify-content-evenly w-100" style={{width: 100 + "%", display: "flex", justifyContent: "space-between"}}>
+                            <div className="d-flex flex-row justify-content-evenly w-100" style={{width: 100 + "%", display: "flex", justifyContent: "space-between"}}>
                                 <button id="submit" type="submit" className={`btn btn-primary ${!privacyConsent ? "disabled" : "" }`}>Account erstellen</button>
                                 <button id="loginPage" className="btn btn-outline-secondary" onClick = {() => navigate("/login")}>Zurück</button>
                             </div>

@@ -38,12 +38,12 @@ function createRandomString(length) {
 
 
 export function checkLogin(email, password) {
-    return signInWithEmailAndPassword(auth, email, password) // Corrected call
+    return signInWithEmailAndPassword(auth, email, password)
         .then((userCredentials) => {
-            return { success: true, userCredentials }; // Use an object for return
+            return { success: true, userCredentials };
         })
         .catch((error) => {
-            return { success: false, error }; // Use an object for return
+            return { success: false, error };
         });
 
 }
@@ -221,7 +221,13 @@ export async function getTimetable(user) {
     return get(dataRef)
         .then((snapshot) => {
             if (snapshot.exists()) {
-                return snapshot.val();
+                if (snapshot.val() !== null) {
+                    return snapshot.val();
+                } else {
+                    setTimetable(user, default_timetable);
+                    return default_timetable;  
+                }
+                
             }
             else {
                 // setCategories(defaultSubjects, user);

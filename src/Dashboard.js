@@ -17,8 +17,7 @@ import { getSubjects } from './backend';
 
 
 
-
-
+import EmptyOptionMenu from "./EmptyOptionMenu";
 
 function Dashboard() {
     const auth = getAuth();
@@ -71,7 +70,10 @@ function Dashboard() {
                 setUser(user);
 
                 getSubjects(user).then(data => {
-                    setSubjects(data);
+                    if (data) {
+                        setSubjects(data);
+                        localStorage.setItem("planerSubjects", JSON.stringify(data));
+                    }
                 });
                 
 
@@ -120,7 +122,16 @@ function Dashboard() {
 
 
     if (email === null ) {
-        return <p>Lade...</p>;
+        return (
+        <> 
+            <Navbar optionMenu={<EmptyOptionMenu />}/>
+            <div className="container-xxl my-3 px-3">
+                <div className="spinner-border" role="status">
+                    <span className="sr-only"></span>
+                </div>
+            </div>
+            
+        </>);
     }
 
     const sortedTasks = getSortedTasks();

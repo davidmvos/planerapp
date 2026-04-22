@@ -5,6 +5,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { createNewTask } from './backend';
 import InfoToast from './InfoToast';
 
+import { Modal } from 'bootstrap';
+
 export default function NewTask() {
     const auth = getAuth();
     const today = new Date().toISOString().split('T')[0];
@@ -17,16 +19,19 @@ export default function NewTask() {
     const [currentUser, setCurrentUser] = useState(null);
 
     const [newTaskCreated, setNewTaskCreated] = useState(false);
+    const [taskCreationError, setTaskCreationError] = useState(false);
 
     const [subjects, setSubjects] = useState(null)
-
-    
 
     function clearForm() {
         document.getElementById("taskName").value = "";
         document.getElementById("taskDescription").value = "";
-        document.getElementById("taskDue").value = today;
-        document.getElementById("taskCategory").value = "no";
+        document.getElementById("taskDue").value = today.toString();
+        document.getElementById("taskCategory").value = 0;
+
+        document.getElementById("taskName").classList.remove("is-invalid");
+        document.getElementById("taskDescription").classList.remove("is-invalid");
+        document.getElementById("taskDue").classList.remove("is-invalid");
 
         setTaskName("");
         setTaskDesc("");
@@ -39,6 +44,7 @@ export default function NewTask() {
             if (user) {
                 setCurrentUser(user);
                 getSubjects(user).then(data => {setSubjects(data)});
+                clearForm();
             }
         });
 
@@ -47,10 +53,29 @@ export default function NewTask() {
 
     async function handleNewTask() {
         if (currentUser) {
-            const result = await createNewTask(taskName, taskDesc, taskDue, taskCategory, currentUser);
-            if (result && result.success) {
-                setNewTaskCreated(true);
-                clearForm();
+
+            
+            if (taskName === "" || taskDesc === "" || taskDue === "") {
+
+
+                if (taskName === "") document.getElementById("taskName").classList.add("is-invalid");
+                if (taskDesc === "") document.getElementById("taskDescription").classList.add("is-invalid");
+                if (taskDue === "") document.getElementById("taskDue").classList.add("is-invalid");
+
+                // data-bs-target="#newTaskModal" data-bs-dismiss="modal"
+            } else {
+                const modalElement = document.getElementById("newTaskModal");
+                const modal = Modal.getInstance(modalElement);
+                modal.hide()
+                const result = await createNewTask(taskName, taskDesc, taskDue, taskCategory, currentUser);
+                if (result && result.success) {
+                    setNewTaskCreated(true);
+                    clearForm();
+                } else {
+                    let msg = <b className='text-danger'>Ein Fehler ist aufgetreten: {result.error.code}</b>;
+                    setTaskCreationError(msg);
+                    setTimeout(() => {setTaskCreationError(false)}, 3500);
+                }
             }
         }
         
@@ -68,15 +93,36 @@ export default function NewTask() {
                             <form>
                                 <div className="mb-2">
                                     <label className="form-label" htmlFor="taskName">Überschrift</label>
-                                    <input type="text" className="form-control" id="taskName" onChange={(e) => setTaskName(e.target.value)} />
+                                    <input type="text" className={"form-control"} id="taskName" onChange={(e) => {
+                                        setTaskName(e.target.value);
+                                        if (e.target.value === "") {
+                                            e.target.classList.add("is-invalid");
+                                        } else {
+                                            e.target.classList.remove("is-invalid");
+                                        }
+                                        }} />
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-label" htmlFor="taskDescription">Aufgabe</label>
-                                    <textarea className="form-control" id="taskDescription" onChange={(e) => setTaskDesc(e.target.value)}></textarea>
+                                    <textarea className={"form-control"} id="taskDescription" onChange={(e) => {
+                                        setTaskDesc(e.target.value)
+                                        if (e.target.value === "") {
+                                            e.target.classList.add("is-invalid");
+                                        } else {
+                                            e.target.classList.remove("is-invalid");
+                                        }
+                                        }}></textarea>
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-label" htmlFor="taskDue">Enddatum</label>
-                                    <input type="date" className="form-control" id="taskDue" value={taskDue} onChange={(e) => setTaskDue(e.target.value)} />
+                                    <input type="date" className="form-control" id="taskDue" value={taskDue} onChange={(e) => {
+                                        setTaskDue(e.target.value);
+                                        if (e.target.value === "") {
+                                            e.target.classList.add("is-invalid");
+                                        } else {
+                                            e.target.classList.remove("is-invalid");
+                                        }
+                                        }} />
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-label" htmlFor="taskCategory">Fach</label>
@@ -97,7 +143,7 @@ export default function NewTask() {
                         </div>
                         <div className="modal-footer">
                             <button className="btn btn-outline-danger" data-bs-target="#newTaskCancelModal" data-bs-toggle="modal">Abbrechen</button>
-                            <button className="btn btn-primary" data-bs-target="#newTaskModal" data-bs-dismiss="modal" onClick={() => handleNewTask()}>Erstellen</button>
+                            <button className="btn btn-primary" onClick={() => handleNewTask()}>Erstellen</button>
                         </div>
                     </div>
                 </div>
@@ -119,6 +165,7 @@ export default function NewTask() {
                 </div>
             </div>
             {newTaskCreated && <InfoToast message={"Neue Aufgabe erstellt"} />}
+            {taskCreationError && <InfoToast message={taskCreationError} />}
         </>
     )
 }
