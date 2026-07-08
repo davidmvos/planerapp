@@ -124,7 +124,7 @@ function Dashboard() {
     if (email === null ) {
         return (
         <> 
-            <Navbar optionMenu={<EmptyOptionMenu />}/>
+            
             <div className="container-xxl my-3 px-3">
                 <div className="spinner-border" role="status">
                     <span className="sr-only"></span>
@@ -138,8 +138,6 @@ function Dashboard() {
 
     return (
     <>
-    <Navbar optionMenu={<DashboardOptionMenu />}/>
-    <NewTask/>
     <div className="container-xxl my-3 px-3">
         <button className="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#newTaskModal">Neue Aufgabe</button>
     </div>

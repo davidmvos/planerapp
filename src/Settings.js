@@ -124,11 +124,11 @@ export default function Settings() {
         }
         
     }
+
     return (
 
         <>
-        <Navbar optionMenu={<EmptyOptionMenu />} />
-        <NewTask />
+
         <div className="container mt-3">
             <h1>Einstellungen</h1>
             <p>Hier können diverse Einstellungen getätigt werden</p>

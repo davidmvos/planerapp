@@ -158,8 +158,11 @@ function Timetable() {
     if (timetable === null) {
         return (
             <>
-                <Navbar optionMenu={<EmptyOptionMenu />}/>
-                <NewTask/>
+            <div className="container-xxl my-3 px-3">
+                <div className="spinner-border" role="status">
+                    <span className="sr-only"></span>
+                </div>
+            </div>
             </>
     
         )
@@ -167,8 +170,7 @@ function Timetable() {
 
     return (
         <>
-            <Navbar optionMenu={<EmptyOptionMenu />}/>
-            <NewTask/>
+
 
             <div className="container-xxl mt-4" style={{overflowX: "scroll"}}>
                 <h2 className="text-center">Stundenplan</h2>
