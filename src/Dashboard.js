@@ -150,8 +150,6 @@ function Dashboard() {
         {sortedTasks && sortedTasks.length === 0 ? "Alles erledigt :)" : ""}
     
     </div>
-
-    {email && <InfoToast message={`Eingeloggt als ${email}`}/>}
     </>
     );
 }
