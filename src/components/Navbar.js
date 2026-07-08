@@ -1,5 +1,5 @@
 import SignOutButton from './SignOutButton';
-import logo from "./logo.png";
+import logo from "../assets/logo.png";
 
 export default function Navbar({optionMenu}) {
 

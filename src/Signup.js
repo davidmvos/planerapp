@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {checkLogin} from "./backend";
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged } from "firebase/auth";
 
-import InfoToast from './InfoToast';
+import InfoToast from './components/InfoToast';
 
 
 import { useNavigate } from 'react-router-dom';

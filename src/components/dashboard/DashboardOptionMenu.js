@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import {getSortingMode, setSortingMode} from "./backend";
+import {getSortingMode, setSortingMode} from "../../backend";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import InfoToast from './InfoToast';
+import InfoToast from '../InfoToast';
 
 
 

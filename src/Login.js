@@ -3,7 +3,7 @@ import {checkLogin} from "./backend";
 import { getAuth, onAuthStateChanged, reauthenticateWithCredential } from "firebase/auth";
 import ReactDOM from 'react-dom';
 
-import InfoToast from './InfoToast';
+import InfoToast from './components/InfoToast';
 
 
 import { useNavigate } from 'react-router-dom';

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import {getSubjects} from "./backend";
+import {getSubjects} from "../backend";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import { createNewTask } from './backend';
+import { createNewTask } from '../backend';
 import InfoToast from './InfoToast';
 
 import { Modal } from 'bootstrap';

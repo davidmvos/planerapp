@@ -1,7 +1,7 @@
-import Navbar from "./Navbar";
-import DashboardOptionMenu from "./DashboardOptionMenu";
-import EmptyOptionMenu from "./EmptyOptionMenu";
-import NewTask from "./NewTask";
+import Navbar from "./components/Navbar";
+import DashboardOptionMenu from "./components/dashboard/DashboardOptionMenu";
+import EmptyOptionMenu from "./components/EmptyOptionMenu";
+import NewTask from "./components/NewTask";
 import { getSubjects, getTimetable, setBlock } from "./backend";
 import { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged, updateEmail, updatePassword } from "firebase/auth";

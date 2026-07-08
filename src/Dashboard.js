@@ -1,23 +1,23 @@
-import './App.css';
+import './css/App.css';
 import { getAuth,  onAuthStateChanged} from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { getDatabase, ref, child, get, onValue } from "firebase/database";
 import { useNavigate } from 'react-router-dom';
-import DashboardOptionMenu from './DashboardOptionMenu';
+import DashboardOptionMenu from './components/dashboard/DashboardOptionMenu';
 
-import "./Dashboard.css";
+import "./css/Dashboard.css";
 
 
-import InfoToast from './InfoToast';
-import Navbar from './Navbar';
-import NewTask from './NewTask';
-import Task from './Task';
-import SignOutButton from './SignOutButton';
+import InfoToast from './components/InfoToast';
+import Navbar from './components/Navbar';
+import NewTask from './components/NewTask';
+import Task from './components/dashboard/Task';
+import SignOutButton from './components/SignOutButton';
 import { getSubjects } from './backend';
 
 
 
-import EmptyOptionMenu from "./EmptyOptionMenu";
+import EmptyOptionMenu from "./components/EmptyOptionMenu";
 
 function Dashboard() {
     const auth = getAuth();

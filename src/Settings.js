@@ -1,19 +1,19 @@
 
 import { useState, useEffect } from "react";
-import Navbar from "./Navbar"
-import NewTask from "./NewTask"
+import Navbar from "./components/Navbar"
+import NewTask from "./components/NewTask"
 
-import "./Settings.css";
+import "./css/Settings.css";
 import { getAuth, onAuthStateChanged, updateEmail, updatePassword, validatePassword } from "firebase/auth";
 
 import { Modal } from 'bootstrap';
 
 
 import { getSubjects } from "./backend";
-import InfoToast from "./InfoToast";
+import InfoToast from "./components/InfoToast";
 import Login from "./Login";
 
-import EmptyOptionMenu from "./EmptyOptionMenu";
+import EmptyOptionMenu from "./components/EmptyOptionMenu";
 
 const auth = getAuth();
 auth.languageCode = "de";

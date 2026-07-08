@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import { editTask, setTaskDone } from "./backend";
-import "./Dashboard.css";
+import { editTask, setTaskDone } from "../../backend";
+import "../../css/Dashboard.css";
 
-import { getSubjects } from "./backend";
+import { getSubjects } from "../../backend";
 
-import InfoToast from "./InfoToast";
+import InfoToast from "../InfoToast";
 
 function isoToNormal(isoDate) {
     const date = new Date(isoDate);
