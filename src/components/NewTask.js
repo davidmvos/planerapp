@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import {getSubjects} from "../backend";
+import {getSubjects, getTimetable} from "../backend";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import { createNewTask } from '../backend';
 import InfoToast from './InfoToast';
+import Calendar from './Calendar';
 
 import { Modal } from 'bootstrap';
 
@@ -22,6 +23,7 @@ export default function NewTask() {
     const [taskCreationError, setTaskCreationError] = useState(false);
 
     const [subjects, setSubjects] = useState(null)
+    const [timetable, setTimetable] = useState(null);
 
     function clearForm() {
         document.getElementById("taskName").value = "";
@@ -35,7 +37,7 @@ export default function NewTask() {
 
         setTaskName("");
         setTaskDesc("");
-        setTaskDue("");
+        setTaskDue(today);
         setTaskCategory("no");
     }
 
@@ -44,6 +46,7 @@ export default function NewTask() {
             if (user) {
                 setCurrentUser(user);
                 getSubjects(user).then(data => {setSubjects(data)});
+                getTimetable(user).then(data => {setTimetable(data)});
                 clearForm();
             }
         });
@@ -114,22 +117,28 @@ export default function NewTask() {
                                         }}></textarea>
                                 </div>
                                 <div className="mb-2">
-                                    <label className="form-label" htmlFor="taskDue">Enddatum</label>
-                                    <input type="date" className="form-control" id="taskDue" value={taskDue} onChange={(e) => {
-                                        setTaskDue(e.target.value);
-                                        if (e.target.value === "") {
-                                            e.target.classList.add("is-invalid");
-                                        } else {
-                                            e.target.classList.remove("is-invalid");
-                                        }
-                                        }} />
+                                    <Calendar
+                                        value={taskDue}
+                                        onChange={(value) => {
+                                            setTaskDue(value);
+                                        }}
+                                        label="Enddatum"
+                                        helperText="Wähle das Fälligkeitsdatum für die Aufgabe."
+                                        timetable={timetable}
+                                        subjects={subjects}
+                                        selectedSubject={taskCategory}
+                                        onSubjectChange={(value) => { setTaskCategory(value) }}
+                                    />
+                                    <input type="hidden" id="taskDue" value={taskDue} readOnly />
                                 </div>
                                 <div className="mb-2">
                                     <label className="form-label" htmlFor="taskCategory">Fach</label>
                                     <select 
                                     className="form-select" 
                                     id="taskCategory" 
-                                    onChange={(e) => setTaskCategory(e.target.value)}>
+                                    onChange={(e) => setTaskCategory(e.target.value)}
+                                    value={taskCategory}
+                                    >
                                         
                                         {subjects && Object.entries(subjects).map(([key, value]) => (
                                             <option key={key} value={key}>

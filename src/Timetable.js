@@ -1,14 +1,34 @@
-import Navbar from "./components/Navbar";
-import DashboardOptionMenu from "./components/dashboard/DashboardOptionMenu";
-import EmptyOptionMenu from "./components/EmptyOptionMenu";
-import NewTask from "./components/NewTask";
-import { getSubjects, getTimetable, setBlock } from "./backend";
 import { useState, useEffect } from "react";
-import { getAuth, onAuthStateChanged, updateEmail, updatePassword } from "firebase/auth";
-import { getDatabase, ref, child, get, onValue  } from "firebase/database";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDatabase, ref, onValue } from "firebase/database";
+
+import { getSubjects, getTimetable, setBlock } from "./backend";
 
 const auth = getAuth();
 auth.languageCode = "de";
+
+function getLocalISODate(date = new Date()) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+function getWeekdayIndex(isoDate) {
+    const date = new Date(`${isoDate}T00:00:00`);
+
+    if (Number.isNaN(date.getTime())) {
+        return null;
+    }
+
+    const weekday = date.getDay();
+    if (weekday === 0 || weekday === 6) {
+        return null;
+    }
+
+    return weekday - 1;
+}
 
 function TimetableSubject({day, block, subjectId, subjects}) {
 
@@ -97,6 +117,14 @@ function Timetable() {
         }
     }
 
+    function getSubjectName(subjectId) {
+        if (!subjects) {
+            return "";
+        }
+
+        return subjects[subjectId] || "Unbekanntes Fach";
+    }
+
 
     useEffect(() => {
 
@@ -171,9 +199,9 @@ function Timetable() {
     return (
         <>
 
-
-            <div className="container-xxl mt-4" style={{overflowX: "scroll"}}>
+            <div className="container-xxl mt-4">
                 <h2 className="text-center">Stundenplan</h2>
+                <div className="table-responsive mt-3" style={{overflowX: "scroll"}}>
                 <table className="table table-responsive table-bordered table-hover">
                     <thead>
                         <tr>
@@ -273,6 +301,7 @@ function Timetable() {
                         </tr>
                     </tbody>
                 </table>
+                </div>
                 <p>Uhrzeit: {new Date().toTimeString().slice(0, 5)} Uhr</p>
             </div>
         </>
