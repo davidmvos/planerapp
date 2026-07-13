@@ -88,6 +88,7 @@ export default function Task({ id, name, desc, due, category }) {
         return () => unsubscribe(); // Clean up the subscription on unmount
     }, [auth]);
 
+    // TODO: Bearbeitung der Aufgabe mit dem NewTaskComponent regeln
     return (
         <>
             <div className={`card mx-sm-0 mx-sm-2 my-2 col-sm-3 p-0 task-card  ${due<today? "bg-danger-subtle text-dark" : ""} ${due<today? "border-danger" : ""} ${due===today? "border-warning" : ""} ${isNextDateEqual(new Date(today), new Date(due))? "border-warning" : ""} `} id={id} style={{ minWidth: 300 + "px" }}>
