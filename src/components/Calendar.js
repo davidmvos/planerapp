@@ -72,7 +72,7 @@ function getSubjectName(subjects, subjectId) {
         return "";
     }
 
-    return subjects[subjectId] || "Unbekanntes Fach";
+    return subjects[subjectId] || "no";
 }
 
 export default function Calendar({
@@ -226,7 +226,7 @@ export default function Calendar({
                                 daySubjects.map((subjectId, index) => (
                                     <div
                                         key={`${selectedDate}-${index}`}
-                                        className={`list-group-item ${subjectId === 0 ? "text-secondary" : ""} list-group-item-action ${subjectId === activeSubject ? "active" : "text-body"}`}
+                                        className={`list-group-item ${subjectId === 0 ? "text-secondary" : ""} list-group-item-action ${subjectId === activeSubject && subjectId != "no" ? "active" : "text-body"}`}
                                         style={{cursor: "pointer"}}
                                         onClick={function() {changeSubject(subjectId);}}
                                     >

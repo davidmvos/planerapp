@@ -10,7 +10,7 @@ import { Modal } from 'bootstrap';
 
 
 
-export default function TaskCreationUi({elementId="newTaskModal", callbackFn=function(){}}) {
+export default function TaskCreationUi({callbackFn=function(){}, elementId="newTaskModal"}) {
 
     const auth = getAuth();
     const today = new Date().toISOString().split('T')[0];
@@ -81,6 +81,8 @@ export default function TaskCreationUi({elementId="newTaskModal", callbackFn=fun
                 const modalElement = document.getElementById(ids.parent);
                 const modal = Modal.getInstance(modalElement);
                 modal.hide()
+
+                clearForm();
                 
                 callbackFn(taskName, taskDesc, taskDue, taskCategory, currentUser);
 
@@ -106,7 +108,7 @@ export default function TaskCreationUi({elementId="newTaskModal", callbackFn=fun
                 <div className="modal-dialog modal-dialog-centered modal-fullscreen-md-down">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5">Neue Aufgabe</h1> {{/* TODO: Parameter für text */}}
+                            <h1 className="modal-title fs-5">Neue Aufgabe</h1> {/* TODO: Parameter für text */}
                             {/* <button type="button" className="btn-close btn-danger" data-bs-dismiss="modal" data-bs-target="#newTaskModal" aria-label="Abbrechen"></button> */}
                         </div>
                         <div className="modal-body">
@@ -143,7 +145,7 @@ export default function TaskCreationUi({elementId="newTaskModal", callbackFn=fun
                                         helperText="Wähle das Fälligkeitsdatum für die Aufgabe."
                                         timetable={timetable}
                                         subjects={subjects}
-                                        selectedSubject={taskCategory}
+                                        selectedSubject={taskCategory} // TODO: taskCategory zurücksetzen wenn aufgabe erstellt wurde
                                         onSubjectChange={(value) => { setTaskCategory(value) }}
                                     />
                                     <input type="hidden" id={ids.taskDue} value={taskDue} readOnly />
