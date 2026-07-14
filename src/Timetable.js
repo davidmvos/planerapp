@@ -62,6 +62,7 @@ function TimetableSubject({day, block, subjectId, subjects}) {
     }
 
     if (!subjectEditMode) {
+        if (!subjects) { return }
         return (
             <td onClick={(e) => {setSubjectEditMode(true);}} style={{width: "15%"}}>
                 <span id={`subject-${day}-${block}`} >{subjectId===0? "" : subjects[subject]}</span>
