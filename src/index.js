@@ -18,6 +18,7 @@ import Timetable from './Timetable';
 import Navbar from './components/Navbar';
 import EmptyOptionMenu from './components/EmptyOptionMenu';
 import DashboardOptionMenu from './components/dashboard/DashboardOptionMenu';
+import NewTask from './components/NewTask';
 
 
 const App = () => {
@@ -48,7 +49,10 @@ const App = () => {
     return (
         <>
         {(window.location.pathname !== '/login' && window.location.pathname !== '/signup') && 
-        <Navbar optionMenu={window.location.pathname === "/" ? <DashboardOptionMenu /> : <EmptyOptionMenu />} />}
+        <>
+            <Navbar optionMenu={window.location.pathname === "/" ? <DashboardOptionMenu /> : <EmptyOptionMenu />} />
+            <NewTask />
+        </>}
 
         <Routes>
         <Route path="/" element={<Dashboard />} />
