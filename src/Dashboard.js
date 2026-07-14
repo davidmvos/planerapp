@@ -34,12 +34,17 @@ function Dashboard() {
 
     // Compute sorted tasks from the raw tasks object + sortingMode
     function getSortedTasks() {
-        if (!tasks) return [];
-        const entries = Object.entries(tasks).filter(([, value]) => !value.done);
+        if (!tasks || typeof tasks !== "object") return [];
+
+        const compareValues = (valueA, valueB) => {
+            return String(valueA ?? "").localeCompare(String(valueB ?? ""));
+        };
+
+        const entries = Object.entries(tasks).filter(([, value]) => !value?.done);
 
         if (sortingMode === 1 || sortingMode === 2) { // modus 2: Aufsteigend nach Enddatum, modus 3: absteigend
             entries.sort(([, taskA], [, taskB]) => {
-                return (taskA.due || "").localeCompare(taskB.due || "");
+                return compareValues(taskA?.due, taskB?.due);
             });
 
             if (sortingMode === 2) {
@@ -48,7 +53,7 @@ function Dashboard() {
         } 
         if (sortingMode === 3) { // nach fach
             entries.sort(([, taskA], [, taskB]) => {
-                return (taskA.subject || "").localeCompare(taskB.subject || "");
+                return compareValues(taskA?.subject, taskB?.subject);
             });
         }
 
