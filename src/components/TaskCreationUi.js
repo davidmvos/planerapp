@@ -10,23 +10,16 @@ import { Modal } from 'bootstrap';
 
 
 
-export default function TaskCreationUi({callbackFn=function(){}, elementId="newTaskModal"}) {
+export default function TaskCreationUi( {
+    callbackFn=function(){}, 
+    elementId="newTaskModal",
+    preFilled={"taskName": null, "taskDesc": null, "taskDue": null, "taskCategory": null}
+}) {
 
     const auth = getAuth();
     const today = new Date().toISOString().split('T')[0];
 
-    const [taskName, setTaskName] = useState("");
-    const [taskDesc, setTaskDesc] = useState("");
-    const [taskDue, setTaskDue] = useState(today);
-    const [taskCategory, setTaskCategory] = useState("no");
-
-    const [currentUser, setCurrentUser] = useState(null);
-
-    const [taskCreationError, setTaskCreationError] = useState(false);
-
-    const [subjects, setSubjects] = useState(null)
-    const [timetable, setTimetable] = useState(null);
-
+    
     const ids = {
         "parent": elementId,
         "taskName": "taskName-" + elementId,
@@ -36,20 +29,35 @@ export default function TaskCreationUi({callbackFn=function(){}, elementId="newT
         "cancelModal": "cancelModal" + elementId
     }
 
+    const [taskName, setTaskName] = useState(preFilled.taskName == null ? "" : preFilled.taskName);
+    const [taskDesc, setTaskDesc] = useState(preFilled.taskDesc == null ? "" : preFilled.taskDesc);
+    const [taskDue, setTaskDue] = useState(preFilled.taskDue == null ? today : preFilled.taskDue);
+    const [taskCategory, setTaskCategory] = useState(preFilled.taskCategory === null ? "no" : preFilled.taskCategory);
+
+    
+
+    const [currentUser, setCurrentUser] = useState(null);
+
+    const [taskCreationError, setTaskCreationError] = useState(false);
+
+    const [subjects, setSubjects] = useState(null)
+    const [timetable, setTimetable] = useState(null);
+
+
     function clearForm() {
-        document.getElementById(ids.taskName).value = "";
-        document.getElementById(ids.taskDescription).value = "";
-        document.getElementById(ids.taskDue).value = today.toString();
-        document.getElementById(ids.taskDue).value = 0;
+        document.getElementById(ids.taskName).value = preFilled.taskName == null ? "" : preFilled.taskName;
+        document.getElementById(ids.taskDescription).value = preFilled.taskDesc == null ? "" : preFilled.taskDesc;
+        document.getElementById(ids.taskDue).value = preFilled.taskDue == null ? today.toString() : preFilled.taskDue;
+        document.getElementById(ids.taskCategory).value = preFilled.taskCategory === null ? "no" : preFilled.taskCategory;
 
         document.getElementById(ids.taskName).classList.remove("is-invalid");
         document.getElementById(ids.taskDescription).classList.remove("is-invalid");
         document.getElementById(ids.taskDue).classList.remove("is-invalid");
 
-        setTaskName("");
-        setTaskDesc("");
-        setTaskDue(today);
-        setTaskCategory("no");
+        setTaskName(preFilled.taskName == null ? "" : preFilled.taskName);
+        setTaskDesc(preFilled.taskDesc == null ? "" : preFilled.taskDesc);
+        setTaskDue(preFilled.taskDue == null ? today : preFilled.taskDue);
+        setTaskCategory(preFilled.taskCategory === null ? "no" : preFilled.taskCategory);
     }
 
     useEffect(() => {
@@ -59,6 +67,12 @@ export default function TaskCreationUi({callbackFn=function(){}, elementId="newT
                 getSubjects(user).then(data => {setSubjects(data)});
                 getTimetable(user).then(data => {setTimetable(data)});
                 clearForm();
+                
+                document.getElementById(ids.taskName).value = taskName;
+                document.getElementById(ids.taskDescription).value = taskDesc;
+                document.getElementById(ids.taskDue).value = taskDue;
+                document.getElementById(ids.taskCategory).value = taskCategory;
+                setTaskCategory(taskCategory);
             }
         });
 
