@@ -102,6 +102,10 @@ export default function Calendar({
     const weekdayIndex = getWeekdayIndex(selectedDate);
     const [activeSubject, setActiveSubject] = useState(selectedSubject);
 
+    useEffect(() => {
+        setActiveSubject(selectedSubject);
+    }, [selectedSubject]);
+
     const subjSet = new Set(weekdayIndex !== null && timetable ? timetable[weekdayIndex] || [] : [])
     subjSet.delete(0);
     const daySubjects = Array.from(subjSet);
