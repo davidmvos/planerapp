@@ -111,7 +111,7 @@ export default function Task({ id, name, desc, due, category }) {
             </div>
 
 
-            <TaskCreationUi callbackFn={handleEditTask} elementId={"editTaskModal-" + id} preFilled={{"taskName": name, "taskDesc": desc, "taskDue": due, "taskCategory": category.valueOf()}} />
+            <TaskCreationUi callbackFn={handleEditTask} elementId={"editTaskModal-" + id} role="editor" preFilled={{"taskName": name, "taskDesc": desc, "taskDue": due, "taskCategory": category.valueOf()}} />
 
             {toastMsg && <InfoToast message={toastMsg}/>}
         </>

@@ -13,6 +13,7 @@ import { Modal } from 'bootstrap';
 export default function TaskCreationUi( {
     callbackFn=function(){}, 
     elementId="newTaskModal",
+    role="creator",
     preFilled={"taskName": null, "taskDesc": null, "taskDue": null, "taskCategory": null}
 }) {
 
@@ -122,7 +123,7 @@ export default function TaskCreationUi( {
                 <div className="modal-dialog modal-dialog-centered modal-fullscreen-md-down">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5">Neue Aufgabe</h1> {/* TODO: Parameter für text */}
+                            <h1 className="modal-title fs-5">{role === "creator" ? "Aufgabe erstellen" : "Aufgabe bearbeiten"}</h1> {/* TODO: Parameter für text */}
                             {/* <button type="button" className="btn-close btn-danger" data-bs-dismiss="modal" data-bs-target="#newTaskModal" aria-label="Abbrechen"></button> */}
                         </div>
                         <div className="modal-body">
@@ -185,7 +186,7 @@ export default function TaskCreationUi( {
                         </div>
                         <div className="modal-footer">
                             <button className="btn btn-outline-danger" data-bs-target={"#" + ids.cancelModal} data-bs-toggle="modal">Abbrechen</button>
-                            <button className="btn btn-primary" onClick={() => handleNewTask()}>Erstellen</button>
+                            <button className="btn btn-primary" onClick={() => handleNewTask()}>{role === "creator" ? "Erstellen" : "Speichern"}</button>
                         </div>
                     </div>
                 </div>
@@ -194,14 +195,14 @@ export default function TaskCreationUi( {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5 text-danger-emphasis">Erstellung abbrechen?</h1>
+                            <h1 className="modal-title fs-5 text-danger-emphasis">{role === "creator" ? "Erstellung abbrechen?" : "Änderungen verwerfen?"}</h1>
                         </div>
                         <div className="modal-body">
                             Es können nicht gespeicherte Daten verloren gehen
                         </div>
                         <div className="modal-footer">
                             <button className="btn btn-outline-secondary" data-bs-target={"#" + ids.parent} data-bs-toggle="modal">Zurück</button>
-                            <button className="btn btn-danger" data-bs-target={"#" + ids.cancelModal} data-bs-dismiss="modal" onClick={() => clearForm()}>Erstellung abbrechen</button>
+                            <button className="btn btn-danger" data-bs-target={"#" + ids.cancelModal} data-bs-dismiss="modal" onClick={() => clearForm()}>{role === "creator" ? "Erstellung abbrechen" : "Verwerfen"}</button>
                         </div>
                     </div>
                 </div>
