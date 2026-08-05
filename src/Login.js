@@ -8,7 +8,7 @@ import InfoToast from './components/InfoToast';
 
 import { useNavigate } from 'react-router-dom';
 import { EmailAuthProvider } from 'firebase/auth/web-extension';
-
+import { translateErrorMessage } from './translateErrorMessage';
 
 const auth = getAuth();
 
@@ -31,15 +31,17 @@ function Login({inline, disableSignup, reLogin, callback}) {
     const [loginErrorState, setLoginErrorState] = useState("");
 
     function handleError(error) {
-        if (error.code === "auth/invalid-email" || error.code === "auth/user-not-found" || error.code ==="auth/invalid-password" || error.code === "auth/invalid-credential" || error.code === "auth/wrong-password" || error.code === "auth/wrong-email") {
+        if (translateErrorMessage(error.code)) {
+
             setLoginErrorState("is-invalid");
-            let msg = <b className='text-danger'>Falsche Zugangsdaten!</b>;
-            if (error.code === "auth/user-not-found") {
-                msg = <b className='text-danger'>Account wurde nicht gefunden</b>;
-            }
+
+            let msg = <b className='text-danger'>{translateErrorMessage(error.code)}</b>;
+
             setToastError(msg);
+
             setTimeout(() => {setToastError(null)}, 4000);
             setTimeout(() => {setLoginErrorState("")}, 3050);
+
         } else {
             let msg = <b className='text-danger'>Fehler: {error.code}</b>;
             setToastError(msg);

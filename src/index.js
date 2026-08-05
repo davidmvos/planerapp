@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
@@ -15,22 +15,30 @@ import "./themes/spacelab.min.css";
 import Signup from './Signup';
 import Settings from './Settings';
 import Timetable from './Timetable';
+import Navbar from './components/Navbar';
+import EmptyOptionMenu from './components/EmptyOptionMenu';
+import DashboardOptionMenu from './components/dashboard/DashboardOptionMenu';
+import NewTask from './components/NewTask';
 
 
 const App = () => {
     const auth = getAuth();
     const navigate = useNavigate();
+
+    const [loggedIn, setLoggedIn] = useState(false);
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
             // console.log(user);
             // User is logged in, no need to navigate
+            setLoggedIn(true);
+
         } else {
 
             console.log('User not logged in');
 
             if (window.location.pathname !== '/login' && window.location.pathname !== '/signup') {
-            navigate('/login'); // Redirect to /login if not logged in
+                navigate('/login'); // Redirect to /login if not logged in
             }
             
         }
@@ -39,6 +47,13 @@ const App = () => {
         return () => unsubscribe(); // Clean up the subscription on unmount
     }, [auth, navigate]);
     return (
+        <>
+        {(window.location.pathname !== '/login' && window.location.pathname !== '/signup') && 
+        <>
+            <Navbar optionMenu={window.location.pathname === "/" ? <DashboardOptionMenu /> : <EmptyOptionMenu />} />
+            <NewTask />
+        </>}
+
         <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login inline={false} disableSignup={false}/>} />
@@ -47,6 +62,7 @@ const App = () => {
         <Route path="/timetable" element={<Timetable />} />
         <Route path="/stundenplan" element={<Timetable />} />
         </Routes>
+        </>
     );
 };
 
