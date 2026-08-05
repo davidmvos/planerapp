@@ -65,7 +65,13 @@ export default function Task({ id, name, desc, due, category }) {
             if (user) {
                 setCurrentUser(user);
                 getSubjects(user).then(data => {
-                    setTaskCategoryPrettyName(data[category.valueOf()]);
+                    if (category == "no") {
+                        setTaskCategoryPrettyName("Ohne Kategorie");
+                    } else {
+                        setTaskCategoryPrettyName(data[category.valueOf()]);
+                    }
+                    
+
                 });
 
             }
